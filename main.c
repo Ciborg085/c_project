@@ -4,17 +4,7 @@
 
 #include "constantes.h"
 #include "estruturas.h"
-
-char menu(void) {
-	char opcao;
-	printf("Menu: ");
-
-
-	scanf(" %c", &opcao);
-	limpaBufferStdin();
-	return toupper(opcao);
-
-}
+#include "menus.h"
 
 int main() {
 	tipoEstudante vetorEstudantes[MAX_ESTUDANTES]; //vetor que guarda os dados dos estudantes

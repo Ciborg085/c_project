@@ -1,5 +1,5 @@
-#ifndef STRUCTS_H_INCLUDED
-#define STRUCTS_H_INCLUDED
+#ifndef ESTRUTURAS_H_INCLUDED
+#define ESTRUTURAS_H_INCLUDED
 
 #include "estruturas.h"
 #include "constantes.h"
