@@ -1,12 +1,11 @@
 #ifndef CONSTS_H_INCLUDED
 #define CONSTS_H_INCLUDED
 
+#define MAX_STRING 300
+
 #define MAX_PROVAS 4
 #define MAX_PERGUNTAS 40
 #define MAX_ESTUDANTES 20
 
 
 #endif
-
-
-

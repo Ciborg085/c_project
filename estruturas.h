@@ -1,7 +1,7 @@
 #ifndef STRUCTS_H_INCLUDED
 #define STRUCTS_H_INCLUDED
 
-#include "consts.h"
+#include "estruturas.h"
 #include <time.h>
 
 
