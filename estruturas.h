@@ -2,8 +2,12 @@
 #define STRUCTS_H_INCLUDED
 
 #include "estruturas.h"
-#include <time.h>
+#include "constantes.h"
 
+typedef struct Data
+{
+	int dia, mes, ano;
+} tipoData;
 
 typedef struct Perguntas
 {
@@ -40,7 +44,7 @@ typedef struct Treinos
 	int idEstudante;
 	int idProva;
 
-	tm realizacao;
+	tipoData realizacao;
 	int duracao; //segundos
 	int estado; //0 - criado, 1 - concluido
 

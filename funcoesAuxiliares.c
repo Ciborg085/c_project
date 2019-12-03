@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "funcoes_auxiliares.h"
+#include "funcoesAuxiliares.h"
 #include "estruturas.h"
 
 // Acrescentada variavel controlo para repetir insercao se ao for inserido numero int
