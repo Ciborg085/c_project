@@ -6,6 +6,14 @@
 #include "estruturas.h"
 #include "menus.h"
 
+
+char menu(void) {
+	char opcao;
+	printf("Menu: ");
+	opcao = toupper(lerChar("Opcao: "));
+	return toupper(opcao);
+}
+
 int main() {
 	tipoEstudante vetorEstudantes[MAX_ESTUDANTES]; //vetor que guarda os dados dos estudantes
 	int nEstudantes;	//Numero de estudantes
