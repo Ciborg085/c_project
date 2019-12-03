@@ -20,6 +20,8 @@ int main() {
 		opcao = menu();
 		switch(opcao){
 			case 'S': break;
+			case 'P': menuPerguntas();
+				break;
 			default: printf("Opcao Invalida.\n");
 		}
 	} while(opcao!='S');
