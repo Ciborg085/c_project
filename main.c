@@ -4,8 +4,7 @@
 
 #include "constantes.h"
 #include "estruturas.h"
-#include "menus.h"
-
+#include "funcsPerguntas.h"
 
 char menu(void) {
 	char opcao;
