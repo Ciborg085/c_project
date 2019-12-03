@@ -1,7 +1,6 @@
 #ifndef ESTRUTURAS_H_INCLUDED
 #define ESTRUTURAS_H_INCLUDED
 
-#include "estruturas.h"
 #include "constantes.h"
 
 typedef struct Data

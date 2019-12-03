@@ -93,7 +93,7 @@ void lerString(char mensagem[MAX_STRING], char vetorCaracteres[MAX_STRING], int 
 }
 
 
-void lerChar(char mensagem[MAX_STRING])
+char lerChar(char mensagem[MAX_STRING])
 {
 	char opcao;
 	printf("%s", mensagem);

@@ -1,4 +1,5 @@
-#include "consts.h"
+#include "constantes.h"
+#include "estruturas.h"
 
 
 /*
@@ -55,5 +56,3 @@ void procurarEstudante(tipoEstudante vetorEstudante[MAX_ESTUDANTES], int nEstuda
 {
 
 }
-
-
