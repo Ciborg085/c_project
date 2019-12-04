@@ -22,7 +22,7 @@ typedef struct Perguntas
 typedef struct Estudante
 {
 	int id;
-	char none[MAX_STRING];
+	char nome[MAX_STRING];
 	int tipo;	//0 - normal, 1 - trabalhador, 2 - extraordinario
 	int regime;	//0 - diurno, 1 - pos-laboral
 	int turno;

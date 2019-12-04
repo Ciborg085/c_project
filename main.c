@@ -8,7 +8,9 @@
 
 char menu(void) {
 	char opcao;
-	printf("Menu: ");
+	printf("Menu: \n");
+	printf("P - Menu de Perguntas\n");
+	printf("S - Sair\n");
 	opcao = toupper(lerChar("Opcao: "));
 	return toupper(opcao);
 }
@@ -19,7 +21,6 @@ int main() {
 
 	//devemos procurar melhor maneira de fazer isto
 	int idEstudantes; //Number that keeps track of the "max id" of the user
-	return 0;
 
 
 	char opcao;

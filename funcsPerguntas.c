@@ -1,3 +1,10 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+#include "funcoesAuxiliares.h"
+#include "estruturas.h"
+
 void menuPerguntas(void) {
 	char opcao;
 	do {
