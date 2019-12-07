@@ -12,7 +12,7 @@ typedef struct Perguntas
 {
 	int id;
 	char questao[MAX_STRING];
-	char opcoes[MAX_STRING][3]; //4 opcoes
+	char opcoes[3][MAX_STRING]; //4 opcoes
 	int idProva;
 	int respostaCorreta;
 	int tipoPergunta;	//0 - Estrutura de controlo,1 - vetor,2 - ponteiro
