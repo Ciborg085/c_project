@@ -14,5 +14,6 @@ criar os menus rapidamente para ter a noção do programa
 
 criar a mecanica dos ficheiros para ser mais rapido tentar o programa pois não vai ser preciso estar sempre a introduzir dados.
 
+Deviamos depois optimizar os printfs
 
 

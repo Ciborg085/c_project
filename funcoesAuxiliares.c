@@ -96,9 +96,21 @@ void lerString(char mensagem[MAX_STRING], char vetorCaracteres[MAX_STRING], int 
 char lerChar(char mensagem[MAX_STRING])
 {
 	char opcao;
-	printf("%s", mensagem);
-	scanf(" %c", &opcao);
-	limpaBufferStdin();
+	int controlo;
+	do
+	{
+		printf("%s", mensagem);
+		controlo = scanf(" %c", &opcao);
+		limpaBufferStdin();
+
+		if (controlo == 0)
+		{
+			printf("Apenas pode introduzir um caracter");
+		}
+
+	} while (controlo == 0);
+
+
 	return opcao;
 }
 
