@@ -1,6 +1,9 @@
 #ifndef FUNCSPERGUNTAS_H_INCLUDED
 #define FUNCSPERGUNTAS_H_INCLUDED
 
-void menuPerguntas(void);
+#include "estruturas.h"
+
+void menuPerguntas(tipoPergunta perguntas[MAX_PERGUNTAS], int *quantPerguntas);
+
 
 #endif

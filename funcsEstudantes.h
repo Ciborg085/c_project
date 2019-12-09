@@ -1,6 +1,8 @@
 #ifndef FUNCSESTUDANTES_H_INCLUDED
 #define FUNCSESTUDANTES_H_INCLUDED
 
+#include "estruturas.h"
+
 
 void criarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int *nEstudantes, int *idEstudantes);
 void alterarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstudantes, int idEstudante);

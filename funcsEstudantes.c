@@ -1,5 +1,7 @@
 #include "constantes.h"
 #include "estruturas.h"
+#include <stdio.h>
+#include "funcoesAuxiliares.h"
 
 
 /*
@@ -15,7 +17,7 @@
 
 Notas:
 	Temos de discutir o que faz mais sentido, devolver o nEstudantes ou o idEstudantes pelo return
-	ou
+	ou-
 	devolver o nEstudantes e/ou o idEstudantes.
 
 	Secalhar deviamos tentar incrementar o nEstudantes antes para que o nEstudantes n fique maior que o max depois que a função acabar
@@ -23,17 +25,17 @@ Notas:
 
 void criarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int *nEstudantes, int *idEstudantes)
 {
-	if ((nEstudantes+1) >= MAX_ESTUDANTES)
+	if ((*nEstudantes)+1 >= MAX_ESTUDANTES)
 	{
 		printf("Chegou ao numero maximo de estudantes.");
 	}
 	else
 	{
-		vetorEstudantes.id = *idEstudantes + 1;
-		lerString("Nome do estudante: ",vetorEstudantes[nEstudantes].nome,)255;
-		vetorEstudantes[nEstudantes].tipo = lerInteiro("Tipos: 0 - Normal,\t1 - Trabalhador,\t2 - Extraordinario",0,2);
-		vetorEstudantes[nEstudantes].regime = lerInteiro("Regimes: 0 - diurno,\t1 - Pos-laboral",0,1);
-		vetorEstudantes[nEstudantes].turno = lerInteiro("Turno:",0);
+		vetorEstudantes[(*nEstudantes)].id = *idEstudantes + 1;
+		lerString("Nome do estudante: ",vetorEstudantes[(*nEstudantes)].nome,255);
+		vetorEstudantes[(*nEstudantes)].tipo = lerInteiro("Tipos: 0 - Normal,\t1 - Trabalhador,\t2 - Extraordinario",0,2);
+		vetorEstudantes[(*nEstudantes)].regime = lerInteiro("Regimes: 0 - diurno,\t1 - Pos-laboral",0,1);
+		vetorEstudantes[(*nEstudantes)].turno = lerInteiro("Turno:",0,100);
 	}
 }
 

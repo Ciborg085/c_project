@@ -13,3 +13,16 @@ criar a mecanica dos ficheiros para ser mais rapido tentar o programa pois não 
 
 
 
+Verificacoes feitas:
+
+Perguntas:
+  Nao existem questoes iguais
+  Nao existem opcoes iguais
+  Existe espaco para mais uma Pergunta
+  Existe espaco para mais uma pergunta na prova (n maximo e 10 porque nos treinos diz maximo 10 respostas)
+
+
+Boas praticas e verificacoes a fazer ao codigo:
+  Todos os switch's tem um default
+  Os dados apenas sao guardados se as verificacoes passarem (nao guardar logo)
+  Verificar que todos os errors acontecem
