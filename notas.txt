@@ -13,3 +13,6 @@ criar a mecanica dos ficheiros para ser mais rapido tentar o programa pois não 
 
 
 
+Podemos adicionar na função consultarEstudante() um argumento para dizer se a função tem numerização ou n, podendo ter numeração numerica, alfabetica e se aptecer romana, para n estar a repetir codigo no alterarEstudante().
+
+Isso ou criar uma função em que damos um vetor de strings e ele dá print a cada linha do vetor com numeração

@@ -155,3 +155,32 @@ tipoData lerData()
 	data.dia = lerInteiro("Dia: ", 1, mesDias);
 	return data;
 }
+
+/*
+   metodo = 0 => Nenhuma ordem
+   metodo = 1 => Ordem Numerica
+   metodo = 2 => Ordem Alfabética
+*/
+void listarVetor(char vetor[MAX_STRING][99], int nElementos,int metodo)
+{
+	int i;
+	switch (metodo)
+	{
+		case 0:
+			//simplesmente dar print ao vetor
+			for(i=0;i<nElementos;i++)
+			{
+				printf("%s",vetor[i]);
+			}
+			break;
+		case 1:
+			for(i=0;i<nElementos;i++)
+			{
+				printf("%d: %s",i+1,vetor[i]);
+			}
+			break;
+		case 2:
+
+			break;
+	}
+}
