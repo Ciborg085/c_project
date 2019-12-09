@@ -5,11 +5,13 @@
 #include "constantes.h"
 #include "estruturas.h"
 #include "funcsPerguntas.h"
+#include "funcsEstudantes.h"
 
 char menu(void) {
 	char opcao;
 	printf("Menu: \n");
 	printf("P - Menu de Perguntas\n");
+	printf("E - Menu de Estudantes\n");
 	printf("S - Sair\n");
 	opcao = toupper(lerChar("Opcao: "));
 	return toupper(opcao);
@@ -30,9 +32,11 @@ int main() {
 	do {
 		opcao = menu();
 		switch(opcao){
-			case 'S': break;
 			case 'P': menuPerguntas(vetorPerguntas, &nPerguntas);
 				break;
+			case 'E':	menuEstudantes(vetorEstudantes,&nEstudantes);
+				break;
+			case 'S': break;
 			default: printf("Opcao Invalida.\n");
 		}
 	} while(opcao!='S');

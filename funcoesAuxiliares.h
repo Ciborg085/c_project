@@ -10,6 +10,7 @@ void lerString(char mensagem[MAX_STRING], char vetorCaracteres[MAX_STRING], int 
 char lerChar(char mensagem[MAX_STRING]);
 void limpaBufferStdin(void);
 tipoData lerData();
+void listarVetor(char vetor[MAX_STRING][99], int nElementos,int metodo);
 
 
 #endif // FUNCOES_AUXILIARES_H_INCLUDED
