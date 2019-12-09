@@ -3,7 +3,6 @@
 
 #include "estruturas.h"
 
-
 void menuEstudantes(tipoEstudante vetorEstudantes[MAX_ESTUDANTES],int *nEstudantes);
 int procurarEstudante(tipoEstudante vetorEstudante[MAX_ESTUDANTES], int nEstudantes, int idEstudante);
 void criarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int *nEstudantes);

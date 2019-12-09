@@ -28,7 +28,7 @@
 
 Notas:
 	Temos de discutir o que faz mais sentido, devolver o nEstudantes ou o idEstudantes pelo return
-	ou
+	ou-
 	devolver o nEstudantes e/ou o idEstudantes.
 
 	Secalhar deviamos tentar incrementar o nEstudantes antes para que o nEstudantes n fique maior que o max depois que a função acabar

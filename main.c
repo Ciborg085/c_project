@@ -20,20 +20,20 @@ char menu(void) {
 int main() {
 	tipoEstudante vetorEstudantes[MAX_ESTUDANTES]; //vetor que guarda os dados dos estudantes
 	int nEstudantes;	//Numero de estudantes
+	tipoPergunta vetorPerguntas[MAX_PERGUNTAS];
+	int nPerguntas;
+
 
 	//devemos procurar melhor maneira de fazer isto
 	int idEstudantes; //Number that keeps track of the "max id" of the user
-
 
 	char opcao;
 	do {
 		opcao = menu();
 		switch(opcao){
-			case 'P':
-				//menuPerguntas();
+			case 'P': menuPerguntas(vetorPerguntas, &nPerguntas);
 				break;
-			case 'E':
-				menuEstudantes(vetorEstudantes,&nEstudantes);
+			case 'E':	menuEstudantes(vetorEstudantes,&nEstudantes);
 				break;
 			case 'S': break;
 			default: printf("Opcao Invalida.\n");

@@ -5,6 +5,7 @@
 
 #define MAX_PROVAS 4
 #define MAX_PERGUNTAS 40
+#define MAX_RESPOSTAS 10
 #define MAX_ESTUDANTES 20
 #define N_OPCOES 4
 
