@@ -4,7 +4,7 @@
 
 #include "constantes.h"
 #include "estruturas.h"
-#include "funcsPerguntas.h"
+//#include "funcsPerguntas.h"
 #include "funcsEstudantes.h"
 
 char menu(void) {
@@ -30,7 +30,7 @@ int main() {
 		opcao = menu();
 		switch(opcao){
 			case 'P':
-				menuPerguntas();
+				//menuPerguntas();
 				break;
 			case 'E':
 				menuEstudantes(vetorEstudantes,&nEstudantes);

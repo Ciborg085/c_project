@@ -66,9 +66,9 @@ void criarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int *nEstudan
 			vetorEstudantes[*nEstudantes].id = vetorEstudantes[(*nEstudantes)-1].id + 1;
 		}
 		lerString("Nome do estudante: ",vetorEstudantes[*nEstudantes].nome,255);
-		vetorEstudantes[*nEstudantes].tipo = lerInteiro("Tipos: 0 - Normal,\t1 - Trabalhador,\t2 - Extraordinario",0,2);
-		vetorEstudantes[*nEstudantes].regime = lerInteiro("Regimes: 0 - diurno,\t1 - Pos-laboral",0,1);
-		vetorEstudantes[*nEstudantes].turno = lerInteiro("Turno:",0,10);
+		vetorEstudantes[*nEstudantes].tipo = lerInteiro("Tipos: 0 - Normal,\t1 - Trabalhador,\t2 - Extraordinario\n",0,2);
+		vetorEstudantes[*nEstudantes].regime = lerInteiro("Regimes: 0 - diurno,\t1 - Pos-laboral\n",0,1);
+		vetorEstudantes[*nEstudantes].turno = lerInteiro("Turno:",1,10);
 	}
 }
 
@@ -245,6 +245,7 @@ void menuEstudantes(tipoEstudante vetorEstudantes[MAX_ESTUDANTES],int *nEstudant
 	/*Falta meter os argumentos e criar a funcao mostrarEstudantes()*/
 	do
 	{
+		printf("\n\nMenu Estudantes:\n");
 		printf("E - Criar Estudante\tC - Consultar estudante\nA - Alterar Estudante\nM - Mostrar Estudantes\nS - Sair\n");
 		opcao = toupper(lerChar("Opcao: "));
 
@@ -252,7 +253,6 @@ void menuEstudantes(tipoEstudante vetorEstudantes[MAX_ESTUDANTES],int *nEstudant
 		{
 			case 'E':
 				criarEstudante(vetorEstudantes, nEstudantes);
-				//criarEstudante();
 				break;
 			case 'C':
 				//consularEstudante();
