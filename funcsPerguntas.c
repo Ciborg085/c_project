@@ -80,32 +80,31 @@ void inserirTipoPergunta(tipoPergunta *pergunta) {
 }
 
 void inserirPergunta(tipoPergunta perguntas[MAX_PERGUNTAS], int *quantPerguntas) {
-	// Verificacoes feitas;
-	// Ha espaco para mais uma pergunta
 	tipoPergunta novaPergunta;
 
 	if(*quantPerguntas == MAX_PERGUNTAS) {
 		printf("Nao existe espaco para mais perguntas.");
-		return;
-	}
-	// Gerar id automatico
-	if(*quantPerguntas == 0) {
-		novaPergunta.id = 0;
 	}
 	else {
-		novaPergunta.id = perguntas[(*quantPerguntas)-1].id + 1;
+		// Gerar id automatico
+		if(*quantPerguntas == 0) {
+			novaPergunta.id = 0;
+		}
+		else {
+			novaPergunta.id = perguntas[(*quantPerguntas)-1].id + 1;
+		}
+
+		inserirQuestao(perguntas,*quantPerguntas, &novaPergunta);
+		inserirIdProva(perguntas,*quantPerguntas, &novaPergunta);
+		inserirOpcoes(&novaPergunta);
+		inserirRespostaCorreta(&novaPergunta);
+		inserirTipoPergunta(&novaPergunta);
+
+		(*quantPerguntas)++;
+		perguntas[(*quantPerguntas)-1] = novaPergunta;
+
+		printf("\nPergunta inserida.\n\n");
 	}
-
-	inserirQuestao(perguntas,*quantPerguntas, &novaPergunta);
-	inserirIdProva(perguntas,*quantPerguntas, &novaPergunta);
-	inserirOpcoes(&novaPergunta);
-	inserirRespostaCorreta(&novaPergunta);
-	inserirTipoPergunta(&novaPergunta);
-
-	(*quantPerguntas)++;
-	perguntas[(*quantPerguntas)-1] = novaPergunta;
-
-	printf("\nPergunta inserida.\n\n");
 }
 
 void mostrarPergunta(tipoPergunta pergunta) {
@@ -144,15 +143,16 @@ void listarPerguntas(tipoPergunta perguntas[MAX_PERGUNTAS], int quantPerguntas) 
 }
 
 int encontrarPergunta(tipoPergunta perguntas[MAX_PERGUNTAS], int quantPerguntas, int idProcura) {
-	int i, encontrado = 0;
+	// Se nao encontrar, devolver -1
+	int encontrado = -1;
+	int i;
 
-	for(i=0; i<MAX_PERGUNTAS;i++){
+	for(i=0; i<MAX_PERGUNTAS && encontrado==-1;i++){
 		if(perguntas[i].id == idProcura) {
-			return i;
+			encontrado = i;
 		}
 	}
-	// Se nao encontrar, devolver -1
-	return -1;
+	return encontrado;
 }
 
 void consultarPergunta(tipoPergunta perguntas[MAX_PERGUNTAS], int quantPerguntas) {
