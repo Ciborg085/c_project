@@ -33,7 +33,7 @@ int main() {
 				menuPerguntas();
 				break;
 			case 'E':
-				menuEstudantes();
+				menuEstudantes(vetorEstudantes,&nEstudantes);
 				break;
 			case 'S': break;
 			default: printf("Opcao Invalida.\n");

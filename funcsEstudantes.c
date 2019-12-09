@@ -15,37 +15,6 @@
 */
 
 
-void menuEstudantes(void)
-{
-	char opcao;
-
-	/*Falta meter os argumentos e criar a funcao mostrarEstudantes()*/
-	do
-	{
-		printf("E - Criar Estudante\tC - Consultar estudante\nA - Alterar Estudante\nM - Mostrar Estudantes\nS - Sair\n");
-		opcao = toupper(lerChar("Opcao: "));
-
-		switch(opcao)
-		{
-			case 'E':
-				//criarEstudante();
-				break;
-			case 'C':
-				//consularEstudante();
-				break;
-			case 'A':
-				//alterarEstudante();
-				break;
-			case 'M':
-				//mostrarEstudantes();
-				break;
-			case 'S':
-				break;
-			default:
-				printf("Opcao invalida\n");
-		}
-	} while(opcao != 'S');
-}
 /*
 	Criar funcionario
 
@@ -225,7 +194,7 @@ void alterarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstuda
 					printf("Opcao invalida\n");
 					break;
 			} //switch
-		} while (opcao < 1 || opcao > 6);
+		} while (opcao < 1 || opcao > 6); //do L_134
 	}
 }
 
@@ -269,4 +238,35 @@ void consultarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstu
 
 
 
+void menuEstudantes(tipoEstudante vetorEstudantes[MAX_ESTUDANTES],int *nEstudantes)
+{
+	char opcao;
 
+	/*Falta meter os argumentos e criar a funcao mostrarEstudantes()*/
+	do
+	{
+		printf("E - Criar Estudante\tC - Consultar estudante\nA - Alterar Estudante\nM - Mostrar Estudantes\nS - Sair\n");
+		opcao = toupper(lerChar("Opcao: "));
+
+		switch(opcao)
+		{
+			case 'E':
+				criarEstudante(vetorEstudantes, nEstudantes);
+				//criarEstudante();
+				break;
+			case 'C':
+				//consularEstudante();
+				break;
+			case 'A':
+				//alterarEstudante();
+				break;
+			case 'M':
+				//mostrarEstudantes();
+				break;
+			case 'S':
+				break;
+			default:
+				printf("Opcao invalida\n");
+		}
+	} while(opcao != 'S');
+}
