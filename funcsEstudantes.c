@@ -33,6 +33,39 @@ Notas:
 
 	Secalhar deviamos tentar incrementar o nEstudantes antes para que o nEstudantes n fique maior que o max depois que a função acabar
 */
+void mostrarEstudante(tipoEstudante vetorEstudantes)
+{
+	printf("Id: %d\n",vetorEstudantes.id);
+	printf("Nome: %s\n",vetorEstudantes.nome);
+	switch(vetorEstudantes.tipo)
+	{
+		case 0:
+			printf("Tipo: Normal\n");
+			break;
+		case 1:
+			printf("Tipo: Trabalhador\n");
+			break;
+		case 2:
+			printf("Tipo: Extraordinario\n");
+			break;
+	}
+
+	switch(vetorEstudantes.regime)
+	{
+		case 0:
+			printf("Regime: Diurno\n");
+			break;
+		case 1:
+			printf("Regime: Pos-Laboral\n");
+	}
+	printf("Turno: %d",vetorEstudantes.turno);
+
+	/*Ainda falta o resto
+		W.I.P
+		sendo o resto,
+	*/
+}
+
 
 int procurarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstudantes, int idEstudante)
 {
@@ -54,22 +87,29 @@ void criarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int *nEstudan
 	if ((*nEstudantes)+1 >= MAX_ESTUDANTES)
 	{
 		printf("Chegou ao numero maximo de estudantes.");
+
 	}
 	else
 	{
-		if (nEstudantes == 0)
+		if (*nEstudantes == 0)
 		{
 			vetorEstudantes[*nEstudantes].id = 0;
 		}
 		else
 		{
-			vetorEstudantes[*nEstudantes].id = vetorEstudantes[(*nEstudantes)-1].id + 1;
+			vetorEstudantes[*nEstudantes].id = vetorEstudantes[(*nEstudantes-1)].id+1;
 		}
+
 		lerString("Nome do estudante: ",vetorEstudantes[*nEstudantes].nome,255);
+		printf("\n");
 		vetorEstudantes[*nEstudantes].tipo = lerInteiro("Tipos: 0 - Normal,\t1 - Trabalhador,\t2 - Extraordinario\n",0,2);
+		printf("\n");
 		vetorEstudantes[*nEstudantes].regime = lerInteiro("Regimes: 0 - diurno,\t1 - Pos-laboral\n",0,1);
+		printf("\n");
 		vetorEstudantes[*nEstudantes].turno = lerInteiro("Turno:",1,10);
+		printf("\n");
 	}
+	(*nEstudantes)++;
 }
 
 /*
@@ -100,39 +140,40 @@ void alterarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstuda
 	}
 	else
 	{
-		//consultarEstudante(vetorEstudante,nEstudantes,pos);
-		//PRINTS----------------
-		printf("1) Nome: %s\n",vetorEstudantes[pos].nome);
-		switch(vetorEstudantes[pos].tipo)
-		{
-			case 0:
-				printf("2) Tipo: Normal\n");
-				break;
-			case 1:
-				printf("2) Tipo: Trabalhador\n");
-				break;
-			case 2:
-				printf("2) Tipo: Extraordinario\n");
-				break;
-		}
-
-		switch(vetorEstudantes[pos].regime)
-		{
-			case 0:
-				printf("3) Regime: Diurno\n");
-				break;
-			case 1:
-				printf("3) Regime: Pos-Laboral\n");
-		}
-		printf("4) Turno: %d\n",vetorEstudantes[pos].turno);
-		printf("5) Tudo\n");
-		printf("6) Sair\n");
-		//---------------------------------
-		opcao = lerInteiro("Opcao: ",1,6);
-		printf("\n\n");
-
 		do
 		{
+			opcao = -1;
+			//consultarEstudante(vetorEstudante,nEstudantes,pos);
+			//PRINTS----------------
+			printf("1) Nome: %s\n",vetorEstudantes[pos].nome);
+			switch(vetorEstudantes[pos].tipo)
+			{
+				case 0:
+					printf("2) Tipo: Normal\n");
+					break;
+				case 1:
+					printf("2) Tipo: Trabalhador\n");
+					break;
+				case 2:
+					printf("2) Tipo: Extraordinario\n");
+					break;
+			}
+
+			switch(vetorEstudantes[pos].regime)
+			{
+				case 0:
+					printf("3) Regime: Diurno\n");
+					break;
+				case 1:
+					printf("3) Regime: Pos-Laboral\n");
+			}
+			printf("4) Turno: %d\n",vetorEstudantes[pos].turno);
+			printf("5) Tudo\n");
+			printf("6) Sair\n");
+			//---------------------------------
+			opcao = lerInteiro("Opcao: ",1,6);
+			printf("\n\n");
+
 			switch(opcao)
 			{
 				case 1:
@@ -140,6 +181,7 @@ void alterarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstuda
 					lerString("=> ",vetorEstudantes[pos].nome,MAX_STRING);
 					break;
 				case 2:
+					/*
 					switch(vetorEstudantes[pos].tipo)
 					{
 						case 0:
@@ -152,11 +194,13 @@ void alterarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstuda
 							printf("2) Tipo: Extraordinario\n");
 							break;
 					}
-
+					*/
+					printf("0 - Normal\t1 - Trabalhador\t2 - Extraordinario\n");
 					vetorEstudantes[pos].tipo = lerInteiro("Tipo: ",0,2);
 					printf("\n");
 					break;
 				case 3:
+					/*
 					switch(vetorEstudantes[pos].regime)
 						{
 							case 0:
@@ -167,13 +211,14 @@ void alterarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstuda
 								break;
 							default:
 								printf("Opcao invalida");
-								break;
 						}
+					*/
+					printf("0 - Diurno\t1 - Pos-Laboral\n");
 					vetorEstudantes[pos].tipo = lerInteiro("Regime: ",0,1);
 					printf("\n");
 					break;
 				case 4:
-					vetorEstudantes[pos].turno = lerInteiro("Turno ",0,99);
+					vetorEstudantes[pos].turno = lerInteiro("Turno ",0,10);
 					break;
 				case 5:
 					//Tudo
@@ -186,68 +231,75 @@ void alterarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstuda
 
 					printf("0 - Diurno\t1 - Pos-Laboral\n");
 					vetorEstudantes[pos].regime = lerInteiro("Regime: ",0,1);
+
+					vetorEstudantes[pos].turno = lerInteiro("Turno: ",1,10);
 					printf("\n");
 					break;
 				case 6:
 					break;
 				default:
 					printf("Opcao invalida\n");
-					break;
 			} //switch
-		} while (opcao < 1 || opcao > 6); //do L_134
+			printf("\n\n");
+		} while (opcao >= 1 && opcao < 6);
 	}
 }
 
 /*Aqui poderiamos mudar o paramentro idEstudante para pos, e quando se chama a função colocar no parametro a função procurarEstudante por exemplo para ser mais eficiente.*/
 /*Tambem podiamos mudar estas variaveis de tipo, regime para strings e usar a função strcmp() para comparar as strings, n sei se é melhor mas é capaz de ser menos eficiente tbh pq tens de usar mais memoria para guardar os vetores dar strings... só uma ideia*/
 
-void consultarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstudantes,int pos)
+void consultarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstudantes)
 {
-	//pos = procurarEstudante(vetorEstudante,int nEstudantes);
+	int pos, idEstudante;
 
-	printf("Id: %d\n",vetorEstudantes[pos].id);
-	printf("Nome: %s\n",vetorEstudantes[pos].nome);
-	switch(vetorEstudantes[pos].tipo)
+	idEstudante = lerInteiro("Introduza o id do estudante.",0,vetorEstudantes[nEstudantes-1].id);
+	printf("\n");
+	pos = procurarEstudante(vetorEstudantes,nEstudantes,idEstudante);
+
+	if (pos == -1)
 	{
-		case 0:
-			printf("Tipo: Normal\n");
-			break;
-		case 1:
-			printf("Tipo: Trabalhador\n");
-			break;
-		case 2:
-			printf("Tipo: Extraordinario\n");
-			break;
+		printf("Estudante com esse id nao existe\n");
 	}
-
-	switch(vetorEstudantes[pos].regime)
+	else
 	{
-		case 0:
-			printf("Regime: Diurno\n");
-			break;
-		case 1:
-			printf("Regime: Pos-Laboral\n");
+		mostrarEstudante(vetorEstudantes[pos]);
 	}
-	printf("Turno: %d",vetorEstudantes[pos].turno);
-
-	/*Ainda falta o resto
-		W.I.P
-		sendo o resto,
-	*/
 }
 
 
+void listarEstudantes(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstudantes)
+{
+	int i;
+
+	if(nEstudantes == 0)
+	{
+		printf("Nao existe estudantes registados.");
+	}
+	else
+	{
+		for(i=0;i<nEstudantes;i++)
+		{
+			mostrarEstudante(vetorEstudantes[i]);
+			printf("\n\n");
+		}
+	}
+}
 
 void menuEstudantes(tipoEstudante vetorEstudantes[MAX_ESTUDANTES],int *nEstudantes)
 {
 	char opcao;
-
-	/*Falta meter os argumentos e criar a funcao mostrarEstudantes()*/
+	int subopcao;
+	int idEstudante;
+	int pos;
+	/*Falta meter os argumentos e criar a funcao listarEstudantes()*/
 	do
 	{
+		idEstudante = 0;
 		printf("\n\nMenu Estudantes:\n");
-		printf("E - Criar Estudante\tC - Consultar estudante\nA - Alterar Estudante\nM - Mostrar Estudantes\nS - Sair\n");
+		printf("E - Criar Estudante\tC - Consultar estudante\nA - Alterar Estudante\nL - Listar Estudantes\nS - Sair\n");
+
 		opcao = toupper(lerChar("Opcao: "));
+		printf("\n");
 
 		switch(opcao)
 		{
@@ -255,13 +307,40 @@ void menuEstudantes(tipoEstudante vetorEstudantes[MAX_ESTUDANTES],int *nEstudant
 				criarEstudante(vetorEstudantes, nEstudantes);
 				break;
 			case 'C':
+				consultarEstudante(vetorEstudantes,*nEstudantes);
 				//consularEstudante();
 				break;
 			case 'A':
-				//alterarEstudante();
+				do
+				{
+					if (*nEstudantes == 0)
+					{
+						printf("Nao existe alunos registados para alterar.\n");
+						subopcao=2;
+					}
+					else
+					{
+						printf("1) Colocar novo id\n");
+						printf("2) Sair\n");
+						subopcao = lerInteiro("Opcao: ",1,2);
+						printf("\n");
+						switch(subopcao)
+						{
+							case 1:
+								idEstudante = lerInteiro("Qual o id do estudante que quer alterar ?",0,vetorEstudantes[(*nEstudantes)-1].id);
+								printf("\n");
+								alterarEstudante(vetorEstudantes,*nEstudantes,idEstudante);
+								break;
+							case 2:
+								break;
+							default:
+								printf("Opcao invalida");
+						}
+					}
+				} while (subopcao != 2);
 				break;
-			case 'M':
-				//mostrarEstudantes();
+			case 'L':
+				listarEstudantes(vetorEstudantes,*nEstudantes);
 				break;
 			case 'S':
 				break;
@@ -270,3 +349,4 @@ void menuEstudantes(tipoEstudante vetorEstudantes[MAX_ESTUDANTES],int *nEstudant
 		}
 	} while(opcao != 'S');
 }
+

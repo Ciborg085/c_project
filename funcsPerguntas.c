@@ -157,6 +157,7 @@ int encontrarPergunta(tipoPergunta perguntas[MAX_PERGUNTAS], int quantPerguntas,
 
 void consultarPergunta(tipoPergunta perguntas[MAX_PERGUNTAS], int quantPerguntas) {
 	int idProcura, posPergunta;
+	/*Podiamos listar o id e o nome dos */
 	idProcura = lerInteiro("Insira o id da pergunta a consultar ",1,1000);
 	posPergunta = encontrarPergunta(perguntas, quantPerguntas, idProcura);
 	if(posPergunta == -1) {
