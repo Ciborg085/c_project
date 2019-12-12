@@ -2,7 +2,7 @@
 #include <ctype.h>
 #include <string.h>
 
-#include "funcoesAuxiliares.h"
+#include "funcsAuxiliares.h"
 #include "constantes.h"
 #include "estruturas.h"
 #include "funcsEstudantes.h"

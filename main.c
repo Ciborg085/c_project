@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
-#include "funcoesAuxiliares.h"
+#include "funcsAuxiliares.h"
 
 #include "constantes.h"
 #include "estruturas.h"
