@@ -12,6 +12,8 @@ char menu(void) {
 	printf("Menu: \n");
 	printf("P - Menu de Perguntas\n");
 	printf("E - Menu de Estudantes\n");
+	printf("G - Gravar dados\n");
+	printf("L - Ler dados\n");
 	printf("S - Sair\n");
 	opcao = toupper(lerChar("Opcao: "));
 	return toupper(opcao);
@@ -33,7 +35,11 @@ int main() {
 		switch(opcao){
 			case 'P': menuPerguntas(vetorPerguntas, &nPerguntas);
 				break;
-			case 'E':	menuEstudantes(vetorEstudantes,&nEstudantes);
+			case 'E': menuEstudantes(vetorEstudantes,&nEstudantes);
+				break;
+			case 'G': gravarFicheiroBinario(vetorEstudantes,nEstudantes,vetorPerguntas,nPerguntas);
+				break;
+			case 'L': lerFicheiroBinario(vetorEstudantes,&nEstudantes,vetorPerguntas,&nPerguntas);
 				break;
 			case 'S': break;
 			default: printf("Opcao Invalida.\n");

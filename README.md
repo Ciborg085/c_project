@@ -17,3 +17,18 @@ criar a mecanica dos ficheiros para ser mais rapido tentar o programa pois não 
 Deviamos depois optimizar os printfs
 
 
+Guardar:
+	| Y | Numero de estudantes |
+	| Y | Vetor de Estudantes  |
+	| Y | Numero de Pergutnas  |
+	| Y | Vetor de Perguntas   |
+	| X | Numero de Respostas  |
+	| X | Vetor Respostas      |
+
+Ler:
+	| Y | Numero de estudantes |
+	| Y | Vetor de Estudantes  |
+	| Y | Numero de Pergutnas  |
+	| Y | Vetor de Perguntas   |
+	| X | Numero de Respostas  |
+	| X | Vetor Respostas      |

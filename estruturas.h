@@ -10,11 +10,11 @@ typedef struct Data
 
 typedef struct Perguntas
 {
-	int id;
+	int id; //a designação tem que ser uma string
 	char questao[MAX_STRING];
 	char opcoes[N_OPCOES][MAX_STRING]; //4 opcoes
 	int idProva;
-	int respostaCorreta;
+	int respostaCorreta; //[1-4]
 	int tipoPergunta;	//0 - Estrutura de controlo,1 - vetor,2 - ponteiro
 
 } tipoPergunta;
@@ -31,7 +31,7 @@ typedef struct Estudante
 typedef struct Resposta
 {
 	int id;
-	char texto[MAX_STRING];
+	char texto[MAX_STRING]; //em principio n é preciso
 	int idPergunta;
 	int opcaoEscolhida;
 	int idTreino;
@@ -52,6 +52,5 @@ typedef struct Treinos
 	int quantRespostasErradas;
 	int classificacao;
 } tipoTreinos;
-
 
 #endif
