@@ -32,3 +32,50 @@ Ler:
 	| Y | Vetor de Perguntas   |
 	| X | Numero de Respostas  |
 	| X | Vetor Respostas      |
+
+
+
+A FAZER:
+	Y- Inserir, consultar, alterar e listar a informação referente às perguntas.
+	Deverão também ser listados a quantidade de vezes que cada pergunta foi
+	utilizada nos treinos e a percentagem de respostas corretas, e indicada
+	a quantidade de perguntas existente para cada prova.
+
+	Y- Inserir, alterar, consultar e listar os dados dos estudantes. Deverão
+	também ser listados a quantidade de treinos efetuados e a percentagem de
+	respostas corretas.
+
+	• Consultar e listar os dados dos treinos.
+
+	• Registar a criação de um treino indicando, entre outros, o número do
+	estudante e a prova que pretende treinar. Poderá também selecionar o tipo
+	de perguntas.
+
+	• Registar a realização de um treino previamente criado, obtendo as
+	respostas do estudante, apresentando os resultados.
+	A informação referente ao treino deverá ser acrescentada num log, em
+	ficheiro de texto, e num ficheiro binário.
+
+	• Eliminar os dados de um treino que não se encontre realizado.
+
+	• Apresentar o resultado obtido por um determinado estudante (indicado pelo
+	utilizador) no último treino, e listar todos os treinos desse estudante.
+
+	• Apresentar (por ordem decrescente) o ranking dos estudantes de acordo com
+	os resultados obtidos nos treinos.
+
+	PARTIAL- • Apresentar no menu principal a seguinte informação: quantidade de
+	estudantes, quantidade de perguntas, quantidade de treinos realizados, e
+	quantidade de treinos a decorrer.
+
+	PARTIAL- • Armazenar (e ler) em ficheiro(s) binário(s) a informação referente aos
+	estudantes, às perguntas e aos treinos.
+
+	• Apresentar os seguintes dados estatísticos: a tempo médio de resposta a
+	uma pergunta, quantidade de treinos realizados entre duas datas (indicadas
+	pelo utilizador), percentagem de treinos efetuados por cada prova,
+	pergunta com a maior quantidade de respostas erradas, e o tipo de perguntas
+	com a menor percentagem de respostas corretas.
+
+	• Consultar as perguntas e as respostas registadas num determinado treino
+

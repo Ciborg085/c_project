@@ -9,6 +9,9 @@
 
 char menu(void) {
 	char opcao;
+	printf("Numero de alunos: %i\tNumero de Perguntas: %i\n");
+	printf("Quantidade de treinos realizados: \tQuantidade de treinos a decorrer: \n");
+
 	printf("Menu: \n");
 	printf("P - Menu de Perguntas\n");
 	printf("E - Menu de Estudantes\n");
@@ -24,10 +27,6 @@ int main() {
 	int nEstudantes;	//Numero de estudantes
 	tipoPergunta vetorPerguntas[MAX_PERGUNTAS];
 	int nPerguntas;
-
-
-	//devemos procurar melhor maneira de fazer isto
-	int idEstudantes; //Number that keeps track of the "max id" of the user
 
 	char opcao;
 	do {
