@@ -43,15 +43,15 @@ typedef struct Treinos
 	int idEstudante;
 	int idProva;
 
-	tipoData realizacao;
-	int duracao; //segundos
+	tipoData dataRealizacao;
+	int duracao; // minutos
 	int estado; //0 - criado, 1 - concluido
 
 	int quantPerguntas;
 	int quantRespostasCorretas;
 	int quantRespostasErradas;
 	int classificacao;
-} tipoTreinos;
+} tipoTreino;
 
 
 #endif
