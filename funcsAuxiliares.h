@@ -12,5 +12,10 @@ void limpaBufferStdin(void);
 tipoData lerData();
 void listarVetor(char vetor[MAX_STRING][99], int nElementos,int metodo);
 
+void gravarFicheiroBinario(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstudantes,tipoPergunta vetorPerguntas[MAX_PERGUNTAS],int nPerguntas);
+void lerFicheiroBinario(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int *nEstudantes, tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int *nPerguntas);
+
+
+
 
 #endif // FUNCS_AUXILIARES_H_INCLUDED

@@ -30,3 +30,15 @@ Boas praticas e verificacoes a fazer ao codigo:
 Podemos adicionar na função consultarEstudante() um argumento para dizer se a função tem numerização ou n, podendo ter numeração numerica, alfabetica e se aptecer romana, para n estar a repetir codigo no alterarEstudante().
 
 Isso ou criar uma função em que damos um vetor de strings e ele dá print a cada linha do vetor com numeração
+
+
+Stuff para prestar atenção:
+	esquemas dos vetores
+	funcionalidades que n desenvolvemos
+	funcionalidades extra
+	a interpretação que fizemos no enunciado
+	diferença entre treino criado e treino comcluido.
+
+
+Duvidas:
+	| X | Quando se cria um treino metesse qual o aluno que vai fazer o treino, e deixa-se o estado do treino como não feito|
