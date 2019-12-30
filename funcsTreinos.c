@@ -6,6 +6,23 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+void mostrarTreino(tipoTreino treino) {
+	printf("Id: %d\n", treino.id);
+	printf("Prova: %d\n", treino.idProva);
+	if(treino.estado==0) {
+		printf("Estado: Nao realizado.\n");
+	}
+	else {
+		printf("Estado: Concluido.\n");
+		printf("Data de realizacao: %d/%d/%d\n", treino.dataRealizacao.mes, treino.dataRealizacao.mes, treino.dataRealizacao.ano);
+		printf("Duracao: %d minutos\n",treino.duracao);
+		printf("Perguntas respondidas: %d", treino.quantPerguntas);
+		printf("Respostas corretas: %d", treino.quantRespostasCorretas);
+		printf("Respostas erradas: %d", treino.quantRespostasErradas);
+		printf("Classificacao: %d", treino.classificacao);
+	}
+}
+
 void inserirIdEstudante(tipoTreino *treino, tipoEstudante estudantes[MAX_ESTUDANTES], int nEstudantes) {
 	int invalido,i, idInserido;
 	do {
@@ -20,21 +37,7 @@ void inserirIdEstudante(tipoTreino *treino, tipoEstudante estudantes[MAX_ESTUDAN
 	treino->idEstudante = idInserido;
 }
 
-// Ja existe este nome em funcsPerguntas.
-void treinoInserirIdProva(tipoTreino *treino){
-  treino->idProva = lerInteiro("Insira o numero de prova a que esta pergunta pertence", 1, MAX_PROVAS);
-}
-
-void inserirDataRealizacao(tipoTreino *treino) {
-  printf("Insira a data de realizacao: \n");
-	treino->dataRealizacao = lerData();
-}
-
-void inserirDuracao(tipoTreino *treino) {
-	treino->duracao = lerInteiro("Insira a duracao da prova (minutos)",1,600);
-}
-
-void criarTreino(tipoTreino *vetorTreinos, int *quantTreinos, tipoEstudante estudantes[MAX_ESTUDANTES], int nEstudantes) {
+tipoTreino * criarTreino(tipoTreino *vetorTreinos, int *quantTreinos, tipoEstudante estudantes[MAX_ESTUDANTES], int nEstudantes) {
 	tipoTreino *novoVetorTreinos;
 	tipoTreino *novoTreino;
 
@@ -50,41 +53,24 @@ void criarTreino(tipoTreino *vetorTreinos, int *quantTreinos, tipoEstudante estu
 			vetorTreinos = novoVetorTreinos;
 
 			(*quantTreinos)++;
-			novoTreino = &vetorTreinos[(*quantTreinos)-1];
+			novoTreino = &(vetorTreinos[(*quantTreinos)-1]);
 
 			// Gerar id automatico
-			if(*quantTreinos == 0) {
+			if(*quantTreinos == 1) {
 				novoTreino->id = 0;
 			}
 			else {
-				novoTreino->id = novoTreino[-1].id;
+				novoTreino->id = novoTreino[-1].id + 1;
 			}
 
 			inserirIdEstudante(novoTreino, estudantes, nEstudantes);
-			treinoInserirIdProva(novoTreino);
+			novoTreino->idProva = lerInteiro("Insira o numero de prova a que esta pergunta pertence", 1, MAX_PROVAS);
 			novoTreino->estado = 0;
+			printf("Treino inserido.\n\n");
 		}
+	}
 
-		printf("Treino inserido.\n\n");
-	}
-}
-
-void mostrarTreino(tipoTreino treino) {
-	printf("hahaahhahahaha");
-	printf("Id: %d\n", treino.id);
-	printf("Prova: %d\n", treino.idProva);
-	if(treino.estado==0) {
-		printf("Estado: Nao realizado.\n");
-	}
-	else {
-		printf("Estado: Concluido.\n");
-		printf("Data de realizacao: %d/%d/%d\n", treino.dataRealizacao.mes, treino.dataRealizacao.mes, treino.dataRealizacao.ano);
-		printf("Duracao: %d minutos\n",treino.duracao);
-		printf("Perguntas respondidas: %d", treino.quantPerguntas);
-		printf("Respostas corretas: %d", treino.quantRespostasCorretas);
-		printf("Respostas erradas: %d", treino.quantRespostasErradas);
-		printf("Classificacao: %d", treino.classificacao);
-	}
+	return vetorTreinos;
 }
 
 void listarTreinos(tipoTreino *treinos, int quantTreinos) {
@@ -140,7 +126,7 @@ void menuTreinos(tipoTreino *treinos, int *quantTreinos, tipoEstudante estudante
 
 		opcao = toupper(lerChar("Opcao: "));
 		switch(opcao) {
-			case 'I': criarTreino(treinos, quantTreinos, estudantes, nEstudantes);
+			case 'I': treinos = criarTreino(treinos, quantTreinos, estudantes, nEstudantes);
 				break;
 			case 'L': listarTreinos(treinos, *quantTreinos);
 				break;
