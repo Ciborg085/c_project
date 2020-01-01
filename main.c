@@ -10,7 +10,7 @@
 
 char menu(int nEstudantes, int nPerguntas) {
 	char opcao;
-	printf("Numero de alunos: %i\tNumero de Perguntas: %i\n");
+	printf("Numero de alunos: %d\tNumero de Perguntas: %d\n", nEstudantes, nPerguntas);
 	printf("Quantidade de treinos realizados: \tQuantidade de treinos a decorrer: \n");
 	printf("Provas:\n");
 
