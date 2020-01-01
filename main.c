@@ -8,10 +8,11 @@
 #include "funcsEstudantes.h"
 #include "funcsTreinos.h"
 
-char menu(void) {
+char menu(int nEstudantes, int nPerguntas) {
 	char opcao;
 	printf("Numero de alunos: %i\tNumero de Perguntas: %i\n");
 	printf("Quantidade de treinos realizados: \tQuantidade de treinos a decorrer: \n");
+	printf("Provas:\n");
 
 	printf("Menu: \n");
 	printf("P - Menu de Perguntas\n");
@@ -27,16 +28,24 @@ char menu(void) {
 int main() {
 	tipoEstudante vetorEstudantes[MAX_ESTUDANTES]; //vetor que guarda os dados dos estudantes
 	int nEstudantes = 0;	//Numero de estudantes
+
 	tipoPergunta vetorPerguntas[MAX_PERGUNTAS];
 	int nPerguntas = 0;
+
 	tipoTreino *vetorTreinos;
+	vetorTreinos = NULL;
+
 	int nTreinos = 0;
+
+	int nProvas[4];
+
 
 	char opcao;
 	do {
-		opcao = menu();
+		//Falta na funcão menu a quantidade de treinos realizados e a decorrer.
+		opcao = menu(nEstudantes,nPerguntas);
 		switch(opcao){
-			case 'P': menuPerguntas(vetorPerguntas, &nPerguntas);
+			case 'P': menuPerguntas(vetorPerguntas, &nPerguntas, nProvas);
 				break;
 			case 'E': menuEstudantes(vetorEstudantes,&nEstudantes);
 				break;
