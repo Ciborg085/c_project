@@ -27,7 +27,7 @@ void inserirIdEstudante(tipoTreino *treino, tipoEstudante vetorEstudantes[MAX_ES
 	int invalido,i, idInserido;
 	do {
 		invalido = 0;
-		idInserido = lerInteiro("Insira o id do estudante: ", 0, nEstudantes);
+		idInserido = lerInteiro("Insira o id do estudante: ", 0, nEstudantes - 1);
 
 		if(procurarEstudante(vetorEstudantes, nEstudantes, idInserido) == -1) {
 			invalido=1;
@@ -89,10 +89,19 @@ int escolherProva(tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPerguntas)
 	return idProva;
 }
 
-tipoResposta *escolherPerguntas(tipoResposta *vetorRespostas, int *nRespostas, tipoPergunta vetorPergunta[MAX_PERGUNTAS], int nPerguntas, int idProva, int idTreino)
+tipoResposta *escolherPerguntas(tipoResposta *vetorRespostas, int *nRespostas, tipoPergunta vetorPerguntas [MAX_PERGUNTAS], int nPerguntas, int idProva, int idTreino)
 {
 	tipoResposta *novoVetorRespostas;
 	tipoResposta *novaResposta;
+	char opcao;
+	int filtro;
+	int invalido = 1;
+	int i,j;
+	int perguntaEscolhida;
+	int vetorIdPerguntas[MAX_RESPOSTAS];
+	int nPerguntasEscolhidas = 0;
+	int perguntaJaSelecionada = -1;
+	int tipoDePerguntaExiste = 0;
 
 	novoVetorRespostas = realloc(vetorRespostas,sizeof(tipoResposta)*((*nRespostas)+1));
 	if(novoVetorRespostas == NULL)
@@ -101,31 +110,116 @@ tipoResposta *escolherPerguntas(tipoResposta *vetorRespostas, int *nRespostas, t
 	}
 	else
 	{
-		//menu principal com o que está a baixo
-		printf("Selecione o tipo de perguntas.\n0) Estrutura de Controlo\n1) Vetors\n2) Ponteiros\nT) Tudo\n");
+		do {
+				//menu principal com o que está a baixo
+			printf("Selecione o tipo de perguntas.\n");
+			//TODO: esconder tipos sem perguntas
+			for(i=0; i<3; i++) {
+				tipoDePerguntaExiste = 0;
+				for(j=0;j<nPerguntas;j++) {
+					if(vetorPerguntas[j].tipoPergunta == i) {
+						tipoDePerguntaExiste = 1;
+					}
+				}
+				if(tipoDePerguntaExiste == 1) {
+					printf("%d) ", i);
+					switch(i) {
+						case 0: printf("Estrutura de controlo\n");
+							break;
+						case 1: printf("Vetores\n");
+							break;
+						case 2: printf("Ponteiros\n");
+							break;
+					}
+				}
+			}
+			printf("T) Tudo\nC) Concluir\n");
+
+			opcao = toupper(lerChar("Opcao: "));
+			if(opcao != 'C') {
+				do {
+					if(opcao == 'T') {
+						filtro = -1;
+						invalido = 0;
+					}
+					else {
+						// conversao char para int
+						filtro = opcao - '0';
+						if(filtro < 0 || filtro > 2) {
+							printf("Opcao invalida.\n");
+						}
+						else {
+							invalido = 0;
+						}
+					}
+				} while(invalido == 1);
+				printf("\n");
+				do {
+					for(i=0;i<nPerguntas; i++){
+						if(vetorPerguntas[i].tipoPergunta == filtro || filtro == -1) {
+							perguntaJaSelecionada = -1;
+							for(j=0;j<nPerguntasEscolhidas;j++) {
+								if(vetorIdPerguntas[j] == i) {
+									perguntaJaSelecionada = 1;
+								}
+							}
+							if(perguntaJaSelecionada == -1) {
+								printf("[ ]");
+							}
+							else {
+								printf("[X]");
+							}
+							printf("%d - %s\n", vetorPerguntas[i].id, vetorPerguntas[i].questao);
+						}
+					}
+					// Verificar se nao ha perguntas ou nao dar allow a selecionar pergunta escondida!
+					printf("-1 - Sair do menu\n");
+
+					perguntaEscolhida = lerInteiro("Opcao: ", -1, nPerguntas-1);
+					if(perguntaEscolhida != -1) {
+						if(perguntaEscolhida >= nPerguntas || perguntaEscolhida < 0){
+							printf("Numero invalido.");
+							invalido == 1;
+						}
+						else {
+							perguntaJaSelecionada = -1;
+							for(i=0;i<nPerguntasEscolhidas;i++) {
+								if(vetorIdPerguntas[i] == perguntaEscolhida) {
+									perguntaJaSelecionada = i;
+								}
+							}
+
+							if(perguntaJaSelecionada == -1) {
+								if(nPerguntasEscolhidas == MAX_RESPOSTAS) {
+									printf("Chegou ao limite maximo de %d perguntas. Pergunta nao selecionada\n", MAX_RESPOSTAS);
+								}
+								else {
+									nPerguntasEscolhidas++;
+									vetorIdPerguntas[nPerguntasEscolhidas-1] = perguntaEscolhida;
+								}
+							}
+							else {
+								//Remover de array
+								for(i=perguntaJaSelecionada+1; i < nPerguntasEscolhidas; i++) {
+									vetorIdPerguntas[i-1] == vetorIdPerguntas[i];
+								}
+								nPerguntasEscolhidas--;
+							}
+
+						}
+					}
+				} while(perguntaEscolhida != -1 || invalido == 1);
+			}
+		} while (opcao != 'C');
+
+		//TODO: guardar no vetorRespostas com novo tamanho
+	}
+	// Escrever para vetorRespostas
+
+
 		//em cada uma das opções vai criar um submenu que contem as perguntas do tipo selecionado para selecionar
 		//as perguntas selecionadas são guardadas no vetor de ids e só depois de se selecionar tudo e concluir é quesão guardadas as seleções no vetorRespostas.
-		/*do
-		{
-			opcao = lerChar("Opcao: ");
-			switch()
-			{
-				case "0":
-					for()
-					break;
-				case "1":
-					break;
-				case "2":
-					break;
-				case "t":
-				case "T":
-					break;
-				default:
-					invalido =1;
-			}
-		} while(invalido == 1);
-		*/
-	}
+
 }
 
 tipoTreino * criarTreino(tipoTreino *vetorTreinos, int *nTreinos, tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstudantes, tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPerguntas, tipoResposta *vetorRespostas, int *nRespostas)
@@ -211,9 +305,9 @@ int encontrarTreino(tipoTreino *vetorTreinos, int nTreinos, int idProcura) {
 	return encontrado;
 }
 
-void consultarTreino(tipoTreino *vetorTreinos, int nTreinos, int nEstudantes) {
+void consultarTreino(tipoTreino *vetorTreinos, int nTreinos) {
 	int idProcura, posPergunta;
-	idProcura = lerInteiro("Insira o id do treino a consultar ",0,nEstudantes);
+	idProcura = lerInteiro("Insira o id do treino a consultar ",0,nTreinos);
 	posPergunta = encontrarTreino(vetorTreinos, nTreinos, idProcura);
 	if(posPergunta == -1) {
 		printf("Nao existe um treino com esse id.");
@@ -242,7 +336,7 @@ void menuTreinos(tipoTreino *vetorTreinos, int *nTreinos, tipoEstudante vetorEst
 				break;
 			case 'L': listarTreinos(vetorTreinos, *nTreinos);
 				break;
-			case 'C': consultarTreino(vetorTreinos, *nTreinos, nEstudantes);
+			case 'C': consultarTreino(vetorTreinos, *nTreinos);
 				break;
 			case 'S': break;
 			default: printf("Opcao invalida\n");
