@@ -30,8 +30,7 @@ typedef struct Estudante
 
 typedef struct Resposta
 {
-	int id;
-	char texto[MAX_STRING]; //em principio n é preciso
+	int id;	//Auto-Increment
 	int idPergunta;
 	int opcaoEscolhida;
 	int idTreino;

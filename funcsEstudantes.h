@@ -9,5 +9,4 @@ void criarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int *nEstudan
 void alterarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstudantes, int idEstudante);
 void consultarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstudantes);
 
-
 #endif

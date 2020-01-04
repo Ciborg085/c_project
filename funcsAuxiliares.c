@@ -190,7 +190,18 @@ void listarVetor(char vetor[MAX_STRING][99], int nElementos,int metodo)
 
 
 
-//Escreve o Estudantes e os dados do vetorEstudantes
+/*
+Escreve:
+	nEstudantes,
+	vetorEstudantes,
+	nPerguntas,
+	vetorPerguntas,
+
+TODO:
+	nProvas,
+	nTreinos,
+	vetorTreinos
+*/
 void gravarFicheiroBinario(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstudantes,tipoPergunta vetorPerguntas[MAX_PERGUNTAS],int nPerguntas)
 {
     FILE *ficheiro;
@@ -232,8 +243,8 @@ void gravarFicheiroBinario(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nE
 					{
 						printf("Vetor Peguntas - Erro ao escrever o ficheiro");
 					}
+					printf("Dados gravados com sucesso.\n");
 				}
-
 			}
         }
 
@@ -282,12 +293,13 @@ void lerFicheiroBinario(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int *nEst
 				}
 				else
 				{
-					//Guardar vetor perguntas
+					//Ler vetor perguntas
 					res = fread(vetorPerguntas, sizeof(tipoPergunta), *nPerguntas, ficheiro);
 					if(res != *nPerguntas)
 					{
 						printf("Erro ao ler o ficheiro");
 					}
+					printf("Dados lidos com sucesso.\n");
 				}
 			}
         }

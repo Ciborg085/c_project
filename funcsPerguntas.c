@@ -158,7 +158,7 @@ int encontrarPergunta(tipoPergunta perguntas[MAX_PERGUNTAS], int quantPerguntas,
 void consultarPergunta(tipoPergunta perguntas[MAX_PERGUNTAS], int quantPerguntas) {
 	int idProcura, posPergunta;
 	/*Podiamos listar o id e o nome dos */
-	idProcura = lerInteiro("Insira o id da pergunta a consultar ",0,1000);
+	idProcura = lerInteiro("Insira o id da pergunta a consultar ",0,quantPerguntas);
 	posPergunta = encontrarPergunta(perguntas, quantPerguntas, idProcura);
 	if(posPergunta == -1) {
 		printf("Nao existe uma pergunta com esse id.");

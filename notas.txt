@@ -42,3 +42,18 @@ Stuff para prestar atenção:
 
 Duvidas:
 	| X | Quando se cria um treino metesse qual o aluno que vai fazer o treino, e deixa-se o estado do treino como não feito|
+
+
+
+Treinos 101:
+		10 perguntas
+		cada uma tem cotação igual
+		por isso:
+
+			cotação de cada uma = 20/nPerguntas = 2;
+
+		se acertei 6 das 10 a minha classificação seria:
+
+			classificação = cotaçãoCadaPergunta * perguntasCorretas
+
+						  = (20/nPerguntas) * perguntasCorretas

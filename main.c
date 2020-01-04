@@ -37,15 +37,16 @@ int main() {
 
 	int nTreinos = 0;
 
-	int nProvas[4];
-
+	tipoResposta *vetorRespostas;
+	vetorRespostas = NULL;
+	int nRespostas;
 
 	char opcao;
 	do {
 		//Falta na funcão menu a quantidade de treinos realizados e a decorrer.
 		opcao = menu(nEstudantes,nPerguntas);
 		switch(opcao){
-			case 'P': menuPerguntas(vetorPerguntas, &nPerguntas, nProvas);
+			case 'P': menuPerguntas(vetorPerguntas, &nPerguntas);
 				break;
 			case 'E': menuEstudantes(vetorEstudantes,&nEstudantes);
 				break;
@@ -53,7 +54,7 @@ int main() {
 				break;
 			case 'L': lerFicheiroBinario(vetorEstudantes,&nEstudantes,vetorPerguntas,&nPerguntas);
 				break;
-			case 'T': menuTreinos(vetorTreinos, &nTreinos, vetorEstudantes, nEstudantes);
+			case 'T': menuTreinos(vetorTreinos, &nTreinos, vetorEstudantes, nEstudantes, vetorPerguntas, nPerguntas, vetorRespostas, &nRespostas);
 				break;
 			case 'S': break;
 			default: printf("Opcao Invalida.\n");
