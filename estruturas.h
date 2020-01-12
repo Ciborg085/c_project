@@ -16,7 +16,6 @@ typedef struct Perguntas
 	int idProva;
 	int respostaCorreta; //[1-4]
 	int tipoPergunta;	//0 - Estrutura de controlo,1 - vetor,2 - ponteiro
-
 } tipoPergunta;
 
 typedef struct Estudante

@@ -8,11 +8,10 @@
 #include "funcsEstudantes.h"
 #include "funcsTreinos.h"
 
-char menu(int nEstudantes, int nPerguntas) {
+char menu(int nEstudantes, int nPerguntas, int nTreinosDecorrer, int nTreinosFeitos) {
 	char opcao;
 	printf("Numero de alunos: %d\tNumero de Perguntas: %d\n", nEstudantes, nPerguntas);
-	printf("Quantidade de treinos realizados: \tQuantidade de treinos a decorrer: \n");
-	printf("Provas:\n");
+	printf("Quantidade de treinos realizados: %d\tQuantidade de treinos a decorrer: %d\n", nTreinosFeitos, nTreinosDecorrer);
 
 	printf("Menu: \n");
 	printf("P - Menu de Perguntas\n");
@@ -41,10 +40,31 @@ int main() {
 	vetorRespostas = NULL;
 	int nRespostas;
 
+	int nTreinosFeitos;
+	int nTreinosDecorrer;
+	int i;
+
 	char opcao;
 	do {
 		//Falta na funcão menu a quantidade de treinos realizados e a decorrer.
-		opcao = menu(nEstudantes,nPerguntas);
+		nTreinosDecorrer =0;
+		nTreinosFeitos = 0;
+		if(nTreinos != 0)
+		{
+			for(i=0;i<nTreinos;i++)
+			{
+				if(vetorTreinos[i].estado == 0)
+				{
+					nTreinosDecorrer++;
+				}
+				if(vetorTreinos[i].estado == 1)
+				{
+					nTreinosFeitos++;
+				}
+			}
+		}
+
+		opcao = menu(nEstudantes,nPerguntas, nTreinosDecorrer, nTreinosFeitos);
 		switch(opcao){
 			case 'P': menuPerguntas(vetorPerguntas, &nPerguntas);
 				break;
@@ -54,7 +74,7 @@ int main() {
 				break;
 			case 'L': lerFicheiroBinario(vetorEstudantes,&nEstudantes,vetorPerguntas,&nPerguntas);
 				break;
-			case 'T': menuTreinos(vetorTreinos, &nTreinos, vetorEstudantes, nEstudantes, vetorPerguntas, nPerguntas, vetorRespostas, &nRespostas);
+			case 'T': vetorTreinos = menuTreinos(vetorTreinos, &nTreinos, vetorEstudantes, nEstudantes, vetorPerguntas, nPerguntas, vetorRespostas, &nRespostas);
 				break;
 			case 'S': break;
 			default: printf("Opcao Invalida.\n");

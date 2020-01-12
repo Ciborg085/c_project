@@ -64,9 +64,11 @@ A FAZER:
 	• Apresentar (por ordem decrescente) o ranking dos estudantes de acordo com
 	os resultados obtidos nos treinos.
 
-	PARTIAL- • Apresentar no menu principal a seguinte informação: quantidade de
-	estudantes, quantidade de perguntas, quantidade de treinos realizados, e
-	quantidade de treinos a decorrer.
+	Y- • Apresentar no menu principal a seguinte informação:
+	quantidade de estudantes,
+	quantidade de perguntas,
+	quantidade de treinos realizados,
+	e quantidade de treinos a decorrer.
 
 	PARTIAL- • Armazenar (e ler) em ficheiro(s) binário(s) a informação referente aos
 	estudantes, às perguntas e aos treinos.

@@ -3,6 +3,6 @@
 
 #include "estruturas.h"
 
-void menuTreinos(tipoTreino *vetorTreinos, int *nTreinos, tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstudantes, tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPerguntas, tipoResposta *vetorRespostas, int *nRespostas);
+tipoTreino *menuTreinos(tipoTreino *vetorTreinos, int *nTreinos, tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstudantes, tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPerguntas, tipoResposta *vetorRespostas, int *nRespostas);
 
 #endif
