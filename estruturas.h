@@ -32,7 +32,6 @@ typedef struct Resposta
 	int id;	//Auto-Increment
 	int idPergunta;
 	int opcaoEscolhida;
-	int idTreino;
 } tipoResposta;
 
 typedef struct Treinos
@@ -49,6 +48,10 @@ typedef struct Treinos
 	int quantRespostasCorretas;
 	int quantRespostasErradas;
 	int classificacao;
+
+	tipoResposta respostas[MAX_RESPOSTAS];
+	int nRespostas;
+
 } tipoTreino;
 
 #endif

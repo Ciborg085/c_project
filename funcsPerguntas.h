@@ -5,5 +5,6 @@
 
 void menuPerguntas(tipoPergunta perguntas[MAX_PERGUNTAS], int *quantPerguntas);
 
+void mostrarPergunta(tipoPergunta pergunta);
 
 #endif
