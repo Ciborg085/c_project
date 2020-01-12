@@ -8,6 +8,7 @@
 #define MAX_RESPOSTAS 10
 #define MAX_ESTUDANTES 20
 #define N_OPCOES 4
+#define MIN_RESPOSTAS 4
 
 #endif
 

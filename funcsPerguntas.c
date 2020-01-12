@@ -111,12 +111,6 @@ void mostrarPergunta(tipoPergunta pergunta) {
 	int i;
 	printf("Id: %d\n", pergunta.id);
 	printf("Prova: %d\n", pergunta.idProva);
-	printf("Questao: %s\n", pergunta.questao);
-	for(i=0; i<N_OPCOES;i++) {
-		printf("Opcao %d: %s\n",i,pergunta.opcoes[i]);
-	}
-	printf("Resposta Correta: %d\n", pergunta.respostaCorreta);
-
 	printf("Tipo de pergunta: ");
 	switch(pergunta.tipoPergunta) {
 		case 0: printf("Estrutura de controlo\n");
@@ -126,6 +120,12 @@ void mostrarPergunta(tipoPergunta pergunta) {
 		case 2: printf("Ponteiro\n");
 			break;
 	}
+	printf("Questao: %s\n", pergunta.questao);
+	for(i=0; i<N_OPCOES;i++) {
+		printf("Opcao %d: %s\n",i,pergunta.opcoes[i]);
+	}
+	printf("Resposta Correta: %d\n", pergunta.respostaCorreta);
+
 }
 
 void listarPerguntas(tipoPergunta perguntas[MAX_PERGUNTAS], int quantPerguntas) {
