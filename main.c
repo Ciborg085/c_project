@@ -70,9 +70,9 @@ int main() {
 				break;
 			case 'E': menuEstudantes(vetorEstudantes,&nEstudantes);
 				break;
-			case 'G': gravarFicheiroBinario(vetorEstudantes,nEstudantes,vetorPerguntas,nPerguntas);
+			case 'G': gravarFicheiroBinario(vetorEstudantes,nEstudantes,vetorPerguntas,nPerguntas, vetorTreinos, nTreinos);
 				break;
-			case 'L': lerFicheiroBinario(vetorEstudantes,&nEstudantes,vetorPerguntas,&nPerguntas);
+			case 'L': vetorTreinos = lerFicheiroBinario(vetorEstudantes,&nEstudantes,vetorPerguntas,&nPerguntas, &nTreinos);
 				break;
 			case 'T': vetorTreinos = menuTreinos(vetorTreinos, &nTreinos, vetorEstudantes, nEstudantes, vetorPerguntas, nPerguntas, vetorRespostas, &nRespostas);
 				break;

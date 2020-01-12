@@ -157,40 +157,6 @@ tipoData lerData()
 }
 
 /*
-   metodo = 0 => Nenhuma ordem
-   metodo = 1 => Ordem Numerica
-   metodo = 2 => Ordem Alfabética
-*/
-
-/*
-void listarVetor(char vetor[MAX_STRING][99], int nElementos,int metodo)
-{
-	int i;
-	switch (metodo)
-	{
-		case 0:
-			//simplesmente dar print ao vetor
-			for(i=0;i<nElementos;i++)
-			{
-				printf("%s",vetor[i]);
-			}
-			break;
-		case 1:
-			for(i=0;i<nElementos;i++)
-			{
-				printf("%d: %s",i+1,vetor[i]);
-			}
-			break;
-		case 2:
-
-			break;
-	}
-}
-*/
-
-
-
-/*
 Escreve:
 	nEstudantes,
 	vetorEstudantes,
@@ -198,14 +164,16 @@ Escreve:
 	vetorPerguntas,
 
 TODO:
-	nProvas,
+	nProvas, -- @Duarte-Dias nao preciso acho
 	nTreinos,
 	vetorTreinos
 */
-void gravarFicheiroBinario(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstudantes,tipoPergunta vetorPerguntas[MAX_PERGUNTAS],int nPerguntas)
+void gravarFicheiroBinario(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstudantes,tipoPergunta vetorPerguntas[MAX_PERGUNTAS],int nPerguntas, tipoTreino * vetorTreinos, int nTreinos)
 {
     FILE *ficheiro;
-    int res;
+    int res = 0;
+		int tamanhoElementos = 0;
+
     ficheiro = fopen("dados.bin", "wb");
     if (ficheiro == NULL)
     {
@@ -213,77 +181,72 @@ void gravarFicheiroBinario(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nE
     }
     else
     {
-		//Guardar nEstudantes
-        res = fwrite(&nEstudantes, sizeof(int), 1, ficheiro);
-        if(res != 1)
-        {
-            printf("nEstudantes - Erro ao escrever o ficheiro.\n");
-        }
-        else
-        {
-			//Guardar o vetor estudantes
-            res = fwrite(vetorEstudantes, sizeof(tipoEstudante), nEstudantes, ficheiro);
-            if(res != nEstudantes)
-            {
-                printf("Vetor Estudantes - Erro ao escrever o ficheiro.\n");
-            }
-			else
-			{
-				//Guardar numero de perguntas
-				res = fwrite(&nPerguntas, sizeof(int),1, ficheiro);
-				if(res != 1)
-				{
-					printf("nPeguntas - Erro ao escrever o ficheiro");
-				}
-				else
-				{
-					//Guardar vetor perguntas
-					res = fwrite(vetorPerguntas, sizeof(tipoPergunta), nPerguntas, ficheiro);
-					if(res != nPerguntas)
-					{
-						printf("Vetor Peguntas - Erro ao escrever o ficheiro");
-					}
-					printf("Dados gravados com sucesso.\n");
-				}
-			}
-        }
+			//Guardar nEstudantes
+			tamanhoElementos++;
+      res += fwrite(&nEstudantes, sizeof(int), 1, ficheiro);
 
-        res = fclose(ficheiro);
-        if(res != 0)
-        {
-            printf("Erro ao fechar o ficheiro.\n");
-        }
+			//Guardar o vetor estudantes
+			tamanhoElementos+= nEstudantes;
+      res += fwrite(vetorEstudantes, sizeof(tipoEstudante), nEstudantes, ficheiro);
+
+			//Guardar numero de perguntas
+			tamanhoElementos++;
+			res += fwrite(&nPerguntas, sizeof(int),1, ficheiro);
+
+			//Guardar vetor perguntas
+			tamanhoElementos+=nPerguntas;
+			res += fwrite(vetorPerguntas, sizeof(tipoPergunta), nPerguntas, ficheiro);
+
+			//Guardar treinos
+			tamanhoElementos++;
+			res += fwrite(&nTreinos, sizeof(int),1,ficheiro);
+			tamanhoElementos+=nTreinos;
+			res += fwrite(vetorTreinos, sizeof(tipoTreino),nTreinos, ficheiro);
+
+			if(res != tamanhoElementos)
+			{
+				printf("Erro ao escrever o ficheiro\n");
+			}
+			else {
+				printf("Dados gravados com sucesso.\n");
+			}
+
+			res = fclose(ficheiro);
+			if(res != 0)
+			{
+				// TODO: Bonus: pedir ao user para fechar o ficheiro e tentar outravez
+				printf("Erro ao fechar o ficheiro.\n");
+			}
     }
 }
 
-
-
-//Le o nEstudantes e le os dados do vetorEstudantes
-void lerFicheiroBinario(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int *nEstudantes, tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int *nPerguntas)
+//vetorTreinos e passado no return, o resto por parametro
+tipoTreino * lerFicheiroBinario(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int *nEstudantes, tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int *nPerguntas, int *nTreinos)
 {
-    FILE *ficheiro;
-    int res;
-    ficheiro = fopen("dados.bin", "rb");
-    if (ficheiro == NULL)
-    {
-        printf("Erro ao abrir o ficheiro dados.bin.\n");
-    }
-    else
-    {
-		//Ler numero Estudantes
-    	res = fread(nEstudantes, sizeof(int), 1, ficheiro);
-        if(res != 1)
-        {
-            printf("Erro a ler o ficheiro.\n");
-        }
-        else
-        {
-			//Ler vetor estudantes
-            res = fread(vetorEstudantes, sizeof(tipoEstudante), *nEstudantes, ficheiro);
-            if(res != *nEstudantes)
-            {
-                printf("Erro ao ler o ficheiro.\n");
-            }else
+	tipoTreino * vetorTreinos;
+	FILE *ficheiro;
+	int res;
+	ficheiro = fopen("dados.bin", "rb");
+	if (ficheiro == NULL)
+	{
+			printf("Erro ao abrir o ficheiro dados.bin.\n");
+	}
+	else
+	{
+	//Ler numero Estudantes
+		res = fread(nEstudantes, sizeof(int), 1, ficheiro);
+		if(res != 1)
+		{
+				printf("Erro a ler o ficheiro.\n");
+		}
+		else
+		{
+	//Ler vetor estudantes
+				res = fread(vetorEstudantes, sizeof(tipoEstudante), *nEstudantes, ficheiro);
+				if(res != *nEstudantes)
+				{
+						printf("Erro ao ler o ficheiro.\n");
+				}else
 			{
 				//Ler numero de perguntas
 				res = fread(nPerguntas, sizeof(int),1, ficheiro);
@@ -299,13 +262,34 @@ void lerFicheiroBinario(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int *nEst
 					{
 						printf("Erro ao ler o ficheiro");
 					}
-					printf("Dados lidos com sucesso.\n");
+					else{
+						res = fread(nTreinos, sizeof(int),1,ficheiro);
+						if(res != 1)
+						{
+							printf("Erro ao ler o ficheiro");
+						}
+						else {
+							vetorTreinos = malloc(sizeof(tipoTreino)*(*nTreinos));
+							if(vetorTreinos==NULL){
+								printf("Erro ao ler o ficheiro");
+							}
+							else {
+								res = fread(vetorTreinos, sizeof(tipoTreino), *nTreinos, ficheiro);
+								if(res != *nTreinos) {
+									printf("Erro ao ler o ficheiro");
+								}
+								else {
+									printf("Dados lidos com sucesso.\n");
+								}
+							}
+						}
+					}
 				}
 			}
-        }
-        fclose(ficheiro);
-    }
+		}
+		//TODO: Erro ao fechar?
+		fclose(ficheiro);
+		printf("\n");
+		return vetorTreinos;
+	}
 }
-
-
-
