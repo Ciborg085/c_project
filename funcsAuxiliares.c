@@ -229,7 +229,7 @@ tipoTreino * lerFicheiroBinario(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], i
 	ficheiro = fopen("dados.bin", "rb");
 	if (ficheiro == NULL)
 	{
-			printf("Erro ao abrir o ficheiro dados.bin.\n");
+		printf("Erro ao abrir o ficheiro dados.bin.\n");
 	}
 	else
 	{
@@ -287,8 +287,11 @@ tipoTreino * lerFicheiroBinario(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], i
 				}
 			}
 		}
-		//TODO: Erro ao fechar?
-		fclose(ficheiro);
+
+		res = fclose(ficheiro);
+		if(res!=0) {
+			printf("Erro ao fechar o ficheiro.\n");
+		}
 		printf("\n");
 		return vetorTreinos;
 	}

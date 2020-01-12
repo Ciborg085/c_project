@@ -10,6 +10,3 @@
 #define N_OPCOES 4
 
 #endif
-
-
-

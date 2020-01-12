@@ -113,7 +113,7 @@ void mostrarPergunta(tipoPergunta pergunta) {
 	printf("Prova: %d\n", pergunta.idProva);
 	printf("Questao: %s\n", pergunta.questao);
 	for(i=0; i<N_OPCOES;i++) {
-		printf("Opcao %d: %s\n",i,pergunta.opcoes[i]);
+		printf("Opcao %d: %s\n",i+1,pergunta.opcoes[i]);
 	}
 	printf("Resposta Correta: %d\n", pergunta.respostaCorreta);
 
@@ -157,14 +157,19 @@ int encontrarPergunta(tipoPergunta perguntas[MAX_PERGUNTAS], int quantPerguntas,
 
 void consultarPergunta(tipoPergunta perguntas[MAX_PERGUNTAS], int quantPerguntas) {
 	int idProcura, posPergunta;
-	/*Podiamos listar o id e o nome dos */
-	idProcura = lerInteiro("Insira o id da pergunta a consultar ",0,quantPerguntas);
-	posPergunta = encontrarPergunta(perguntas, quantPerguntas, idProcura);
-	if(posPergunta == -1) {
-		printf("Nao existe uma pergunta com esse id.");
+	// Podiamos listar o id e o nome dos
+	if(quantPerguntas == 0) {
+		printf("Nao existem perguntas para consultar.\n");
 	}
 	else {
-		mostrarPergunta(perguntas[posPergunta]);
+		idProcura = lerInteiro("Insira o id da pergunta a consultar ",0,quantPerguntas);
+		posPergunta = encontrarPergunta(perguntas, quantPerguntas, idProcura);
+		if(posPergunta == -1) {
+			printf("Nao existe uma pergunta com esse id.");
+		}
+		else {
+			mostrarPergunta(perguntas[posPergunta]);
+		}
 	}
 }
 

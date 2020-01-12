@@ -143,8 +143,6 @@ void alterarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstuda
 		do
 		{
 			opcao = -1;
-			//consultarEstudante(vetorEstudante,nEstudantes,pos);
-			//PRINTS----------------
 			printf("1) Nome: %s\n",vetorEstudantes[pos].nome);
 			switch(vetorEstudantes[pos].tipo)
 			{
@@ -252,17 +250,22 @@ void consultarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstu
 {
 	int pos, idEstudante;
 
-	idEstudante = lerInteiro("Introduza o id do estudante.",0,vetorEstudantes[nEstudantes-1].id);
-	printf("\n");
-	pos = procurarEstudante(vetorEstudantes,nEstudantes,idEstudante);
-
-	if (pos == -1)
-	{
-		printf("Estudante com esse id nao existe\n");
+	if(nEstudantes==0) {
+		printf("Nao existem estudantes para consultar.\n");
 	}
-	else
-	{
-		mostrarEstudante(vetorEstudantes[pos]);
+	else {
+		idEstudante = lerInteiro("Introduza o id do estudante.",0,vetorEstudantes[nEstudantes-1].id);
+		printf("\n");
+		pos = procurarEstudante(vetorEstudantes,nEstudantes,idEstudante);
+
+		if (pos == -1)
+		{
+			printf("Estudante com esse id nao existe\n");
+		}
+		else
+		{
+			mostrarEstudante(vetorEstudantes[pos]);
+		}
 	}
 }
 
@@ -349,4 +352,3 @@ void menuEstudantes(tipoEstudante vetorEstudantes[MAX_ESTUDANTES],int *nEstudant
 		}
 	} while(opcao != 'S');
 }
-

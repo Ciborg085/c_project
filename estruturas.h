@@ -36,21 +36,21 @@ typedef struct Resposta
 
 typedef struct Treinos
 {
+	int estado; //0 - criado, 1 - concluido
+
+	// Campos treino criado
 	int id;		//auto-increment
 	int idEstudante;
 	int idProva;
+	tipoResposta respostas[MAX_RESPOSTAS];
+	int nRespostas; //tambem é a quantidade de perguntas
 
+	// Campos treino criado e concluido
 	tipoData dataRealizacao;
 	int duracao; // minutos
-	int estado; //0 - criado, 1 - concluido
-
-	int quantPerguntas;
 	int quantRespostasCorretas;
 	int quantRespostasErradas;
-	int classificacao;
-
-	tipoResposta respostas[MAX_RESPOSTAS];
-	int nRespostas;
+	float classificacao;
 
 } tipoTreino;
 

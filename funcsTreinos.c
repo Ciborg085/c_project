@@ -20,10 +20,10 @@ void mostrarTreino(tipoTreino treino)
 		printf("Estado: Concluido.\n");
 		printf("Data de realizacao: %d/%d/%d\n", treino.dataRealizacao.mes, treino.dataRealizacao.mes, treino.dataRealizacao.ano);
 		printf("Duracao: %d minutos\n",treino.duracao);
-		printf("Perguntas respondidas: %d", treino.quantPerguntas);
+		printf("Perguntas respondidas: %d", treino.nRespostas);
 		printf("Respostas corretas: %d", treino.quantRespostasCorretas);
 		printf("Respostas erradas: %d", treino.quantRespostasErradas);
-		printf("Classificacao: %d", treino.classificacao);
+		printf("Classificacao: %f", treino.classificacao);
 	}
 }
 
@@ -136,7 +136,6 @@ void escolherPerguntas(tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPergunta
 	{
 		//menu principal com o que está a baixo
 		printf("Selecione o tipo de perguntas.\n");
-		//TODO: esconder tipos sem perguntas - DONE?
 		for(i=0; i<3; i++)
 		{
 			tipoDePerguntaExiste = 0;
@@ -215,7 +214,7 @@ void escolherPerguntas(tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPergunta
 						printf("%d - %s\n", vetorPerguntas[i].id, vetorPerguntas[i].questao);
 					}
 				}
-				//TODO: Verificar se nao ha perguntas ou nao dar allow a selecionar pergunta escondida!
+				//TODO: bonus: Verificar se nao ha perguntas ou nao dar allow a selecionar pergunta escondida!
 				printf("-1 - Voltar\n");
 
 				perguntaEscolhida = lerInteiro("Opcao: ", -1, nPerguntas-1);
@@ -333,7 +332,6 @@ tipoTreino *criarTreino(tipoTreino *vetorTreinos, int *nTreinos, tipoEstudante v
 			escolherPerguntas(vetorPerguntas, nPerguntas, novoTreino);
 			printf("\nDEBUG: %d",novoTreino->respostas[0].idPergunta);
 
-			//TODO: listar as perguntas da prova
 			novoTreino->estado = 0;
 			printf("Treino inserido.\n\n");
 
@@ -370,31 +368,85 @@ int encontrarTreino(tipoTreino *vetorTreinos, int nTreinos, int idProcura) {
 	return encontrado;
 }
 
+
 void consultarTreino(tipoTreino *vetorTreinos, int nTreinos, tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPerguntas) {
+
 	int idProcura, posTreino;
-	idProcura = lerInteiro("Insira o id do treino a consultar ",0,nTreinos-1);
-	//TODO: Isto n é posTreino em vez de posPergunta ?
-	posTreino = encontrarTreino(vetorTreinos, nTreinos, idProcura);
-	if(posTreino == -1) {
-		printf("Nao existe um treino com esse id.");
+	if(nTreinos == 0) {
+		printf("Nao existem treinos para consultar.\n");
 	}
 	else {
-		mostrarTreino(vetorTreinos[posTreino]);
-		mostrarPerguntasTreino(vetorTreinos[posTreino], vetorPerguntas, nPerguntas);
+		idProcura = lerInteiro("Insira o id do treino a consultar ",0,nTreinos-1);
+		posTreino = encontrarTreino(vetorTreinos, nTreinos, idProcura);
+		if(posTreino == -1) {
+			printf("Nao existe um treino com esse id.");
+		}
+		else {
+			mostrarTreino(vetorTreinos[posTreino]);
+			mostrarPerguntasTreino(vetorTreinos[posTreino], vetorPerguntas, nPerguntas);
+		}
 	}
 
 
 	//TODO: mostrar perguntas e respostas desse treino, com a resposta correta assinalada.
 }
 
+void realizarProva(tipoTreino * vetorTreinos, int nTreinos , tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPerguntas) {
+	int idProcura, posTreino, i,j;
+	tipoTreino * treino;
+	tipoPergunta pergunta;
+
+	if(nTreinos == 0) {
+		printf("Nao existem treinos para realizar.\n");
+	}
+	else {
+		idProcura = lerInteiro("Insira o id do treino a realizar ",0,nTreinos-1);
+		posTreino = encontrarTreino(vetorTreinos, nTreinos, idProcura);
+		if(posTreino == -1) {
+			printf("Nao existe um treino com esse id.\n");
+		}
+		else {
+			treino = &vetorTreinos[posTreino];
+
+			printf("Insira a data de realizacao:");
+			treino->dataRealizacao = lerData();
+
+			treino->duracao = lerInteiro("Insira a duracao em minutos: ", 1, 3600);
+			printf("treino->nRespostas %d",treino->nRespostas);
+			treino->quantRespostasCorretas = 0;
+			for(i=0;i<treino->nRespostas;i++) {
+				pergunta = vetorPerguntas[treino->respostas[i].idPergunta];
+				printf("\n\n");
+				printf("Questao: %s\n", pergunta.questao);
+				printf("Opcoes:\n");
+				for(j=0; j<N_OPCOES;j++) {
+					printf("Opcao %d: %s\n",j+1,pergunta.opcoes[j]);
+				}
+				printf("\n");
+				treino->respostas[i].opcaoEscolhida = lerInteiro("Opcao Escolhida: ",1,4)-1;
+
+				if(treino->respostas[i].opcaoEscolhida == pergunta.respostaCorreta) {
+					treino->quantRespostasCorretas++;
+				}
+			}
+			treino->estado = 1;
+			treino->quantRespostasErradas = treino->nRespostas-treino->quantRespostasCorretas;
+			treino->classificacao = (100.0/treino->nRespostas)*(treino->quantRespostasCorretas - treino->quantRespostasErradas*0.25);
+			printf("Treino realizado.");
+			mostrarTreino(*treino);
+		}
+	}
+}
+
 
 tipoTreino *menuTreinos(tipoTreino *vetorTreinos, int *nTreinos, tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstudantes, tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPerguntas) {
 	char opcao;
 	do {
-		printf("\nGerir treinos:\n");
+		printf("\n\nGerir treinos:\n");
 		printf("I - Inserir treinos\n");
 		printf("L - Listar treinos\n");
 		printf("C - Consultar treinos\n");
+		printf("R - Realizar prova\n");
 		printf("S - Sair para menu principal\n\n");
 
 		opcao = toupper(lerChar("Opcao: "));
@@ -405,6 +457,8 @@ tipoTreino *menuTreinos(tipoTreino *vetorTreinos, int *nTreinos, tipoEstudante v
 			case 'L': listarTreinos(vetorTreinos, *nTreinos);
 				break;
 			case 'C': consultarTreino(vetorTreinos, *nTreinos, vetorPerguntas, nPerguntas);
+				break;
+			case 'R': realizarProva(vetorTreinos, *nTreinos, vetorPerguntas, nPerguntas);
 				break;
 			case 'S': break;
 			default: printf("Opcao invalida\n");
