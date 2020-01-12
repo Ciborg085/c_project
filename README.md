@@ -22,17 +22,17 @@ Guardar:
 	| Y | Vetor de Estudantes  |
 	| Y | Numero de Pergutnas  |
 	| Y | Vetor de Perguntas   |
-	| X | Numero de Respostas  |
-	| X | Vetor Respostas      |
+	| Y | Vetor de Treinos     |
+	| Y | Numero de Treinos    |
 
 Ler:
 	| Y | Numero de estudantes |
 	| Y | Vetor de Estudantes  |
 	| Y | Numero de Pergutnas  |
 	| Y | Vetor de Perguntas   |
-	| X | Numero de Respostas  |
-	| X | Vetor Respostas      |
-
+	| Y | Numero de Respostas  |
+	| Y | Vetor de Treinos     |
+	| Y | Numero de Treino     |
 
 
 A FAZER:
@@ -45,9 +45,9 @@ A FAZER:
 	também ser listados a quantidade de treinos efetuados e a percentagem de
 	respostas corretas.
 
-	• Consultar e listar os dados dos treinos.
+	Y- Consultar e listar os dados dos treinos.
 
-	• Registar a criação de um treino indicando, entre outros, o número do
+	Y- Registar a criação de um treino indicando, entre outros, o número do
 	estudante e a prova que pretende treinar. Poderá também selecionar o tipo
 	de perguntas.
 
@@ -70,7 +70,7 @@ A FAZER:
 	quantidade de treinos realizados,
 	e quantidade de treinos a decorrer.
 
-	PARTIAL- • Armazenar (e ler) em ficheiro(s) binário(s) a informação referente aos
+	Y-  Armazenar (e ler) em ficheiro(s) binário(s) a informação referente aos
 	estudantes, às perguntas e aos treinos.
 
 	• Apresentar os seguintes dados estatísticos: a tempo médio de resposta a
@@ -79,5 +79,5 @@ A FAZER:
 	pergunta com a maior quantidade de respostas erradas, e o tipo de perguntas
 	com a menor percentagem de respostas corretas.
 
-	• Consultar as perguntas e as respostas registadas num determinado treino
+	Y- Consultar as perguntas e as respostas registadas num determinado treino
 
