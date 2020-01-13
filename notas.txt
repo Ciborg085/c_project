@@ -26,6 +26,8 @@ Boas praticas e verificacoes a fazer ao codigo:
   Todos os switch's tem um default
   Os dados apenas sao guardados se as verificacoes passarem (nao guardar logo)
   Verificar que todos os errors acontecem
+	procurar da handle a -1
+	estatisticas /0
 
 Podemos adicionar na função consultarEstudante() um argumento para dizer se a função tem numerização ou n, podendo ter numeração numerica, alfabetica e se aptecer romana, para n estar a repetir codigo no alterarEstudante().
 

@@ -68,7 +68,7 @@ int main() {
 		switch(opcao){
 			case 'P': menuPerguntas(vetorPerguntas, &nPerguntas);
 				break;
-			case 'E': menuEstudantes(vetorEstudantes,&nEstudantes);
+			case 'E': menuEstudantes(vetorEstudantes,&nEstudantes,vetorTreinos,nTreinos,vetorPerguntas,nPerguntas);
 				break;
 			case 'G': gravarFicheiroBinario(vetorEstudantes,nEstudantes,vetorPerguntas,nPerguntas, vetorTreinos, nTreinos);
 				break;
@@ -79,6 +79,7 @@ int main() {
 			case 'S': break;
 			default: printf("Opcao Invalida.\n");
 		}
+		printf("\n\n");
 	} while(opcao!='S');
 	return 0;
 }
