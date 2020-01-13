@@ -382,9 +382,6 @@ void consultarTreino(tipoTreino *vetorTreinos, int nTreinos, tipoPergunta vetorP
 			mostrarPerguntasTreino(vetorTreinos[posTreino], vetorPerguntas, nPerguntas);
 		}
 	}
-
-
-	//TODO: mostrar perguntas e respostas desse treino, com a resposta correta assinalada.
 }
 
 void realizarProva(tipoTreino * vetorTreinos, int nTreinos , tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPerguntas) {
@@ -469,17 +466,6 @@ tipoTreino * removerTreino(tipoTreino *vetorTreinos, int *nTreinos)
 		}
 		else
 		{
-			/*
-				Y- printf a aos treinos que podem ser apagados
-				Y- selecionar o treino para ser apagado
-				Y- procurar o index do treino selecionado no vetor treinos
-				Y- novoTreino = vetorTreinos[pos]
-				Y- dar shift dos treinos que estão à frente do index (treino selecionado) para tras
-				realloc
-				(*nTreinos)--;
-				return do novo vetor;
-			*/
-
 			for(i=0;i<(*nTreinos);i++)
 			{
 				if(vetorTreinos[i].estado == 0)
@@ -512,13 +498,6 @@ tipoTreino * removerTreino(tipoTreino *vetorTreinos, int *nTreinos)
 					{
 						novoVetorTreinos = vetorTreinos;
 						invalido =0;
-						/*
-							for(i=perguntaJaSelecionada+1; i < nPerguntasEscolhidas; i++)
-							{
-								vetorIdPerguntas[i-1] == vetorIdPerguntas[i];
-							}
-							nPerguntasEscolhidas--;
-						*/
 
 						for(i=pos+1;i<(*nTreinos);i++)
 						{
