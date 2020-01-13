@@ -567,169 +567,219 @@ tipoTreino * removerTreino(tipoTreino *vetorTreinos, int *nTreinos)
 	return vetorTreinos;
 }
 
-void mostrarEstatisticas(tipoTreino *vetorTreinos, int nTreinos, tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPerguntas)
+void tempoMedio(tipoTreino *vetorTreinos, int nTreinos)
 {
-	typedef struct
-	{
-		int key;
-		int value;
-	} node;
-
+	int duracao=0, respostas=0;
 	float tempoMedio;
-	int i,j,l,pos,k;
-	int provas[4]= {0};
-	float percProvas[4] = {0};
-	int nTreinosRealizadosEntreDatas;
-	int repetiu;
-	int duracao, respostas;
-	int nPerguntasErradas[MAX_PERGUNTAS]= {0};
-	int idPerguntasErradas[MAX_PERGUNTAS]= {0};
+	int i;
+
+	//tempo_medio = duracao/ perguntas
+	for(i=0;i<nTreinos;i++)
+	{
+		if(vetorTreinos[i].estado == 1)
+		{
+			duracao += vetorTreinos[i].duracao;
+			respostas += vetorTreinos[i].nRespostas;
+		}
+	}
+	if (respostas != 0)
+	{
+		tempoMedio = (duracao/nTreinos) / respostas;
+		printf("O Tempo medio de resposta a uma pergunta e de %d minutos.\n", tempoMedio);
+	}
+}
+
+void nTreinosEntreDatas(tipoTreino *vetorTreinos, int nTreinos)
+{
+	int i;
+	tipoData data1,data2;
+	int nTreinosRealizadosEntreDatas=0;
+
+	printf("\nQuantidade de treinos realizados entre duas datas:\n");
+	printf("Ler primeira data\n");
+	data1 = lerData();
+	printf("\nLer segunda data\n");
+	data2 = lerData();
+
+	if(dataEMaior(data1,data2)==1)
+	{
+		printf("A primeira data e maior que a segunda data");
+	}
+	else
+	{
+		for(i=0;i<nTreinos;i++)
+		{
+			if(vetorTreinos[i].estado == 1)
+			{
+				if(dataEMaior(vetorTreinos[i].dataRealizacao, data1) == 1 && dataEMaior(data2, vetorTreinos[i].dataRealizacao))
+				{
+					nTreinosRealizadosEntreDatas++;
+				}
+			}
+		}
+		printf("\nForam feitos %d entre as datas que indicou\n\n", nTreinosRealizadosEntreDatas);
+	}
+
+}
+
+void perguntaMaisErrada(tipoTreino *vetorTreinos, int nTreinos, tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPerguntas, int nPerguntasErradas[MAX_PERGUNTAS])
+{
 	int nPerguntasNoVetor=0;
-	int nTreinosRealizados=0;
-	node *perguntasErradas = NULL;
-
-
-
-	tipoData data1, data2;
+	int idPerguntaMaisErrada=0;
+	int nPerguntaMaisErrada=0;
+	int pos;
+	int repetiu=0;
+	int i,j;
 
 	for(i=0;i<nTreinos;i++)
 	{
-		if(vetorTreinos[i].estado ==1)
+		if(vetorTreinos[i].estado == 1)
+		{
+			for(j=0;j<vetorTreinos[i].nRespostas;j++)
+			{
+				pos = encontrarPergunta(vetorPerguntas, nPerguntas, vetorTreinos[i].respostas[j].idPergunta);
+				if(pos != -1)
+				{
+					if(vetorTreinos[i].respostas[j].opcaoEscolhida != vetorPerguntas[pos].respostaCorreta)
+					{
+						nPerguntasErradas[pos]++;
+					}
+				}
+			}
+		}
+	}
+	for(i=0;i<nPerguntas;i++)
+	{
+		if(nPerguntasErradas[i] > nPerguntaMaisErrada)
+		{
+			nPerguntaMaisErrada = nPerguntasErradas[i];
+			idPerguntaMaisErrada = vetorPerguntas[i].id;
+		}
+	}
+
+	pos = encontrarPergunta(vetorPerguntas, nPerguntas, idPerguntaMaisErrada);
+	printf("\nA pergunta mais errada:\n ID) %d, Respostas erradas: %d\n\n", idPerguntaMaisErrada, nPerguntaMaisErrada, vetorPerguntas[pos].questao);
+}
+
+void percTreinosPorProva(tipoTreino *vetorTreinos, int nTreinos)
+{
+	int provas[4]= {0};
+	float percProvas[4] = {0};
+	int i;
+
+	for(i=0;i<nTreinos;i++)
+	{
+		//tenho de colocar o -1 por que as provas sao de 1 a 4 e o array provas vai de 0 a 3
+		provas[(vetorTreinos[i].idProva)-1]++;
+	}
+	printf("Foram realizados:\n\n");
+	for(i=0;i<MAX_PROVAS;i++)
+	{
+		percProvas[i] = ((provas[i]/nTreinos)*100);
+		printf("%0.2f da prova %d \n",percProvas[i], i+1);
+	}
+}
+
+void mostrarEstatisticas(tipoTreino *vetorTreinos, int nTreinos, tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPerguntas)
+{
+	int i,j,pos;
+	int nTreinosRealizados=0;
+
+
+	int totalTipoPerguntas[3] = {0};
+	int tipoPerguntasCertas[3] = {0};
+	int tipoPerguntasErradas[3] = {0};
+
+	int nPerguntasErradas[MAX_PERGUNTAS] = {0};
+	float menorPercTipoPerguntaRespostasCorretas;
+	int tipoPerguntaMenorRespostasCorretas;
+
+
+	for(i=0;i<nTreinos;i++)
+	{
+		if(vetorTreinos[i].estado == 1)
 		{
 			nTreinosRealizados++;
 		}
 	}
-	if(nTreinosRealizados != 0)
+	if(nTreinosRealizados !=0)
 	{
-		//tempo medio
-		//tempo_medio = duracao/ perguntas
-		for(i=0;i<nTreinos;i++)
-		{
-			if(vetorTreinos[i].estado == 1)
-			{
-				duracao += vetorTreinos[i].duracao;
-				respostas += vetorTreinos[i].nRespostas;
-			}
-		}
-		tempoMedio = (duracao/(nTreinos)) / respostas;
-		printf("O Tempo medio de resposta a uma pergunta e de %f minutos.\n", tempoMedio);
+
+		//tempo médio de resposta a uma pergunta
+		tempoMedio(vetorTreinos, nTreinos);
+
+
+		//quantidade de treinos realizados entre duas datas
+		nTreinosEntreDatas(vetorTreinos,nTreinos);
 
 		//pergunta com maior quantidade de respostas erradas
 		//tenho de comparar vetorTreinos[i].respostas[j].opcaoEscolhida com VetorPerguntas[i].respostaCorreta
-		for(i=0;i<nTreinos;i++)
-		{
-			if(vetorTreinos[i].estado == 1)
-			{
-				for(j=0;j<vetorTreinos[i].nRespostas;j++)
-				{
-					pos = encontrarPergunta(vetorPerguntas, nPerguntas, vetorTreinos[i].respostas[j].idPergunta);
-					if(pos != -1)
-					{
-						if(vetorTreinos[i].respostas[j].opcaoEscolhida != vetorPerguntas[pos].respostaCorreta)
-						{
-							repetiu=0;
-							for(l=0;l<nPerguntasNoVetor;l++)
-							{
-								if(vetorTreinos[i].respostas[j].idPergunta == idPerguntasErradas[l])
-								{
-									(nPerguntasErradas[l])++;
-									repetiu=1;
-								}
-							}
-							if(repetiu == 0)
-							{
-								idPerguntasErradas[nPerguntasNoVetor] = vetorTreinos[i].respostas[j].idPergunta;
-								(nPerguntasErradas[nPerguntasNoVetor])++;
-								nPerguntasNoVetor++;
-							}
-						}
-					}
-				}
-			}
-		}
 
-		//sort de um dicionario
-
-		int cmpfunc (const void * a, const void * b) {
-			int i = ((const node *)a)->value;
-			int j = ((const node *)b)->value;
-			return (j-i);
-		}
-
-
-
-		perguntasErradas = malloc(nPerguntasNoVetor*sizeof(node));
-
-		for(i=0;i<nPerguntasNoVetor;i++)
-		{
-			perguntasErradas[i].key= idPerguntasErradas[i];
-			perguntasErradas[i].value = nPerguntasErradas[i];
-		}
-
-		qsort(perguntasErradas, nPerguntasNoVetor, sizeof(node), cmpfunc);
-
-		for(i=0;i<nPerguntasNoVetor;i++)
-		{
-			pos = encontrarPergunta(vetorPerguntas, nPerguntas, perguntasErradas[i].key);
-			printf("ID:%d) Respostas Erradas:%d, Questao: \"%s\"\n", perguntasErradas[i].key, perguntasErradas[i].value, vetorPerguntas[pos].questao);
-		}
-
-		//quantidade de treinos realizados entre duas datas
-		//verificar entre anos, entre meses e entre dias
-		//TODO: n está a funcionar bem
-		printf("\nQuantidade de treinos realizados entre duas datas:\n");
-		printf("Ler primeira data\n");
-		data1 = lerData();
-		printf("Ler primeira data\n");
-		data2 = lerData();
-
-		if(!(data1.ano < data2.ano))
-		{
-			if(!(data1.mes < data2.mes))
-			{
-				if(!(data1.dia < data2.dia ))
-				{
-					printf("Erro: A data 2 e maior que a data1\n");
-				}
-			}
-		}
-		else
-		{
-			for(i=0;i<nTreinos;i++)
-			{
-				if(vetorTreinos[i].estado == 1)
-				{
-					if( data1.ano <= vetorTreinos[i].dataRealizacao.ano && data2.ano >= vetorTreinos[i].dataRealizacao.ano)
-					{
-						if( data1.mes <= vetorTreinos[i].dataRealizacao.mes && data2.mes >= vetorTreinos[i].dataRealizacao.mes)
-						{
-							if( data1.dia <= vetorTreinos[i].dataRealizacao.dia && data2.dia >= vetorTreinos[i].dataRealizacao.dia)
-							{
-								nTreinosRealizadosEntreDatas++;
-							}
-						}
-					}
-				}
-			}
-			printf("Foram feitos %d entre as datas que indicou\n", nTreinosRealizadosEntreDatas);
-		}
+		//pergunta com a maior quantidade de respostas erradas
+ 		perguntaMaisErrada(vetorTreinos, nTreinos, vetorPerguntas, nPerguntas, nPerguntasErradas);
 
 		//percentagem de treinos efetuados por cada prova,
+		percTreinosPorProva(vetorTreinos,nTreinos);
+
+		/*
+			o tipo de perguntas com a menor percentagem de respostas corretas.
+			vou reutilizador os arrays idPerguntasErradas para agora guardar o tipo de pergunta que é, sendo esse tipo um integer.
+			e o nPerguntasErradas vai ser utilizado para guardar o numero de perguntas erradas para um tipo
+		*/
+
+		// o tipo de pergunta com a menor percentagem de respostas corretas.
+
 		for(i=0;i<nTreinos;i++)
 		{
-			provas[(vetorTreinos[i].idProva)-1]++;
+			for(j=0;i<vetorTreinos[i].nRespostas;i++)
+			{
+				pos = encontrarPergunta(vetorPerguntas, nPerguntas, vetorTreinos[i].respostas[j].idPergunta);
+				totalTipoPerguntas[vetorPerguntas[pos].tipoPergunta]++;
+			}
 		}
-		printf("Foram realizados:\n\n");
-
-		for(i=0;i<MAX_PROVAS;i++)
+		for(i=0;i<nPerguntas;i++)
 		{
-			percProvas[i] = ((provas[i]/nTreinos)*100);
+			//Agrupa as respostas erradas por tipo de pergunta no vetor tipoPerguntasErradas
+			tipoPerguntasErradas[vetorPerguntas[i].tipoPergunta] += nPerguntasErradas[i];
 		}
-
-
-		for(i=0;i<MAX_PROVAS;i++)
+		for(i=0;i<3;i++)
 		{
-			printf("%0.2f da prova %d \n",percProvas[i], i+1);
+			if(totalTipoPerguntas[i] != nPerguntasErradas[i])
+			{
+				tipoPerguntasCertas[i] = totalTipoPerguntas[i] - nPerguntasErradas[i];
+			}
+		}
+		for(i=0;i<3;i++)
+		{
+			if(totalTipoPerguntas != 0)
+			{
+				if(i==0)
+				{
+					menorPercTipoPerguntaRespostasCorretas = ((float)tipoPerguntasCertas[i]/(float)totalTipoPerguntas[i])*100;
+				}
+				if(menorPercTipoPerguntaRespostasCorretas > ((float)tipoPerguntasCertas[i]/(float)totalTipoPerguntas[i])*100)
+				{
+					menorPercTipoPerguntaRespostasCorretas = ((float)tipoPerguntasCertas[i]/totalTipoPerguntas[i])*100;
+					tipoPerguntaMenorRespostasCorretas = i;
+				}
+			}
+			//Como pode dar numeros negativos coloquei if.
+			if(menorPercTipoPerguntaRespostasCorretas < 0)
+			{
+				menorPercTipoPerguntaRespostasCorretas = 0.0;
+			}
+		}
+		switch(tipoPerguntaMenorRespostasCorretas)
+		{
+			case 0:
+				printf("O tipo de pergunta com menor percentagem de respostas corretas e a Estrutura de controlo com : %0.2f %% de respostas corretas.\n", menorPercTipoPerguntaRespostasCorretas);
+				break;
+			case 1:
+				printf("O tipo de pergunta com menor percentagem de respostas corretas e o Vetor com : %0.2f %% de respostas corretas.\n", menorPercTipoPerguntaRespostasCorretas);
+				break;
+			case 2:
+				printf("O tipo de pergunta com menor percentagem de respostas corretas e o Ponteiro com : %0.2f %% de respostas corretas.\n", menorPercTipoPerguntaRespostasCorretas);
+				break;
 		}
 	}
 	else
