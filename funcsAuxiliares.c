@@ -180,13 +180,6 @@ tipoData lerData()
 	return data;
 }
 
-/*
-Escreve:
-	nEstudantes,
-	vetorEstudantes,
-	nPerguntas,
-	vetorPerguntas,
-*/
 void gravarFicheiroBinario(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstudantes,tipoPergunta vetorPerguntas[MAX_PERGUNTAS],int nPerguntas, tipoTreino * vetorTreinos, int nTreinos)
 {
     FILE *ficheiro;
@@ -320,3 +313,4 @@ tipoTreino * lerFicheiroBinario(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], i
 	}
 	return vetorTreinos;
 }
+
