@@ -6,5 +6,6 @@
 void menuPerguntas(tipoPergunta perguntas[MAX_PERGUNTAS], int *quantPerguntas);
 
 void mostrarPergunta(tipoPergunta pergunta);
+int encontrarPergunta(tipoPergunta perguntas[MAX_PERGUNTAS], int quantPerguntas, int idProcura);
 
 #endif

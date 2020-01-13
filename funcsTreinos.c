@@ -20,10 +20,10 @@ void mostrarTreino(tipoTreino treino)
 		printf("Estado: Concluido.\n");
 		printf("Data de realizacao: %d/%d/%d\n", treino.dataRealizacao.mes, treino.dataRealizacao.mes, treino.dataRealizacao.ano);
 		printf("Duracao: %d minutos\n",treino.duracao);
-		printf("Perguntas respondidas: %d", treino.nRespostas);
-		printf("Respostas corretas: %d", treino.quantRespostasCorretas);
-		printf("Respostas erradas: %d", treino.quantRespostasErradas);
-		printf("Classificacao: %f", treino.classificacao);
+		printf("Perguntas respondidas: %d\n", treino.nRespostas);
+		printf("Respostas corretas: %d\n", treino.quantRespostasCorretas);
+		printf("Respostas erradas: %d\n", treino.quantRespostasErradas);
+		printf("Classificacao: %f\n", treino.classificacao);
 	}
 }
 
@@ -116,7 +116,6 @@ int escolherProva(tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPerguntas)
 
 void escolherPerguntas(tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPerguntas, tipoTreino * novoTreino)
 {
-	//TODO: temos de mudar os ids das respostas para a questão, e os ids das perguntas para a questão, sendo a unique key a questão ...
 	char opcao;
 	int filtro;
 	int invalido = 1;
@@ -187,7 +186,6 @@ void escolherPerguntas(tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPergunta
 				}
 			} while(invalido == 1);
 			printf("\n");
-
 
 			do
 			{
@@ -428,7 +426,7 @@ void realizarProva(tipoTreino * vetorTreinos, int nTreinos , tipoPergunta vetorP
 					printf("Opcao %d: %s\n",j+1,pergunta.opcoes[j]);
 				}
 				printf("\n");
-				treino->respostas[i].opcaoEscolhida = lerInteiro("Opcao Escolhida: ",1,4)-1;
+				treino->respostas[i].opcaoEscolhida = lerInteiro("Opcao Escolhida: ",1,4);
 
 				if(treino->respostas[i].opcaoEscolhida == pergunta.respostaCorreta) {
 					treino->quantRespostasCorretas++;
@@ -547,6 +545,188 @@ tipoTreino * removerTreino(tipoTreino *vetorTreinos, int *nTreinos)
 	return vetorTreinos;
 }
 
+/*
+	• Apresentar os seguintes dados estatísticos:
+		Y- a tempo médio de resposta a uma pergunta,
+		Y- quantidade de treinos realizados entre duas datas (indicadas pelo utilizador),
+		Y- percentagem de treinos efetuados por cada prova,
+TODO:o que está a baixxooooo
+		pergunta com a maior quantidade de respostas erradas,
+		e o tipo de perguntas com a menor percentagem de respostas corretas.
+
+*/
+
+void mostrarEstatisticas(tipoTreino *vetorTreinos, int nTreinos, tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPerguntas)
+{
+	typedef struct
+	{
+		int key;
+		int value;
+	} node;
+
+	float tempoMedio;
+	int i,j,l,pos,k;
+	int provas[4]= {0};
+	float percProvas[4] = {0};
+	int nTreinosRealizadosEntreDatas;
+	int repetiu;
+	int duracao, respostas;
+	int nPerguntasErradas[MAX_PERGUNTAS]= {0};
+	int idPerguntasErradas[MAX_PERGUNTAS]= {0};
+	int nPerguntasNoVetor=0;
+	int nTreinosRealizados=0;
+	node *perguntasErradas = NULL;
+
+
+
+	tipoData data1, data2;
+
+	for(i=0;i<nTreinos;i++)
+	{
+		if(vetorTreinos[i].estado ==1)
+		{
+			nTreinosRealizados++;
+		}
+	}
+	if(nTreinosRealizados != 0)
+	{
+		//tempo medio
+		//tempo_medio = duracao/ perguntas
+		for(i=0;i<nTreinos;i++)
+		{
+			if(vetorTreinos[i].estado == 1)
+			{
+				duracao += vetorTreinos[i].duracao;
+				respostas += vetorTreinos[i].nRespostas;
+			}
+		}
+		tempoMedio = (duracao/(nTreinos)) / respostas;
+		printf("O Tempo medio de resposta a uma pergunta e de %d minutos.\n");
+
+		//pergunta com maior quantidade de respostas erradas
+		//tenho de comparar vetorTreinos[i].respostas[j].opcaoEscolhida com VetorPerguntas[i].respostaCorreta
+		for(i=0;i<nTreinos;i++)
+		{
+			if(vetorTreinos[i].estado == 1)
+			{
+				for(j=0;j<vetorTreinos[i].nRespostas;j++)
+				{
+					pos = encontrarPergunta(vetorPerguntas, nPerguntas, vetorTreinos[i].respostas[j].idPergunta);
+					if(pos != -1)
+					{
+						if(vetorTreinos[i].respostas[j].opcaoEscolhida != vetorPerguntas[pos].respostaCorreta)
+						{
+							repetiu=0;
+							for(l=0;l<nPerguntasNoVetor;l++)
+							{
+								if(vetorTreinos[i].respostas[j].idPergunta == idPerguntasErradas[l])
+								{
+									(nPerguntasErradas[l])++;
+									repetiu=1;
+								}
+							}
+							if(repetiu == 0)
+							{
+								idPerguntasErradas[nPerguntasNoVetor] = vetorTreinos[i].respostas[j].idPergunta;
+								(nPerguntasErradas[nPerguntasNoVetor])++;
+								nPerguntasNoVetor++;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		//sort de um dicionario
+
+		int cmpfunc (const void * a, const void * b) {
+			int i = ((const node *)a)->value;
+			int j = ((const node *)b)->value;
+			return (j-i);
+		}
+
+
+
+		perguntasErradas = malloc(nPerguntasNoVetor*sizeof(node));
+
+		for(i=0;i<nPerguntasNoVetor;i++)
+		{
+			perguntasErradas[i].key= idPerguntasErradas[i];
+			perguntasErradas[i].value = nPerguntasErradas[i];
+		}
+
+		qsort(perguntasErradas, nPerguntasNoVetor, sizeof(node), cmpfunc);
+
+		for(i=0;i<nPerguntasNoVetor;i++)
+		{
+			pos = encontrarPergunta(vetorPerguntas, nPerguntas, perguntasErradas[i].key);
+			printf("ID:%d) Respostas Erradas:%d, Questao: \"%s\"\n", perguntasErradas[i].key, perguntasErradas[i].value, vetorPerguntas[pos].questao);
+		}
+
+		//quantidade de treinos realizados entre duas datas
+		//verificar entre anos, entre meses e entre dias
+		//TODO: n está a funcionar bem
+		printf("\nQuantidade de treinos realizados entre duas datas:\n");
+		printf("Ler primeira data\n");
+		data1 = lerData();
+		printf("Ler primeira data\n");
+		data2 = lerData();
+
+		if(!(data1.ano < data2.ano))
+		{
+			if(!(data1.mes < data2.mes))
+			{
+				if(!(data1.dia < data2.dia ))
+				{
+					printf("Erro: A data 2 e maior que a data1\n");
+				}
+			}
+		}
+		else
+		{
+			for(i=0;i<nTreinos;i++)
+			{
+				if(vetorTreinos[i].estado == 1)
+				{
+					if( data1.ano <= vetorTreinos[i].dataRealizacao.ano && data2.ano >= vetorTreinos[i].dataRealizacao.ano)
+					{
+						if( data1.mes <= vetorTreinos[i].dataRealizacao.mes && data2.mes >= vetorTreinos[i].dataRealizacao.mes)
+						{
+							if( data1.dia <= vetorTreinos[i].dataRealizacao.dia && data2.dia >= vetorTreinos[i].dataRealizacao.dia)
+							{
+								nTreinosRealizadosEntreDatas++;
+							}
+						}
+					}
+				}
+			}
+			printf("Foram feitos %d entre as datas que indicou\n", nTreinosRealizadosEntreDatas);
+		}
+
+		//percentagem de treinos efetuados por cada prova,
+		for(i=0;i<nTreinos;i++)
+		{
+			provas[(vetorTreinos[i].idProva)-1]++;
+		}
+		printf("Foram realizados:\n\n");
+
+		for(i=0;i<MAX_PROVAS;i++)
+		{
+			percProvas[i] = ((provas[i]/nTreinos)*100);
+		}
+
+
+		for(i=0;i<MAX_PROVAS;i++)
+		{
+			printf("%0.2f da prova %d \n",percProvas[i], i+1);
+		}
+	}
+	else
+	{
+		printf("Nao existe provas realizadas.\n");
+	}
+}
+
 tipoTreino *menuTreinos(tipoTreino *vetorTreinos, int *nTreinos, tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstudantes, tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPerguntas) {
 	char opcao;
 	do {
@@ -556,6 +736,7 @@ tipoTreino *menuTreinos(tipoTreino *vetorTreinos, int *nTreinos, tipoEstudante v
 		printf("C - Consultar treinos\n");
 		printf("R - Realizar prova\n");
 		printf("D - Remover Treino a decorrer\n");
+		printf("E - Estatisticas\n");
 		printf("S - Sair para menu principal\n\n");
 
 		opcao = toupper(lerChar("Opcao: "));
@@ -570,6 +751,8 @@ tipoTreino *menuTreinos(tipoTreino *vetorTreinos, int *nTreinos, tipoEstudante v
 			case 'R': realizarProva(vetorTreinos, *nTreinos, vetorPerguntas, nPerguntas);
 				break;
 			case 'D': removerTreino(vetorTreinos, nTreinos);
+				break;
+			case 'E': mostrarEstatisticas(vetorTreinos, *nTreinos, vetorPerguntas, nPerguntas);
 				break;
 			case 'S': break;
 			default: printf("Opcao invalida\n");

@@ -51,12 +51,12 @@ A FAZER:
 	estudante e a prova que pretende treinar. Poderá também selecionar o tipo
 	de perguntas.
 
-	• Registar a realização de um treino previamente criado, obtendo as
+	Y- Registar a realização de um treino previamente criado, obtendo as
 	respostas do estudante, apresentando os resultados.
 	A informação referente ao treino deverá ser acrescentada num log, em
 	ficheiro de texto, e num ficheiro binário.
 
-	• Eliminar os dados de um treino que não se encontre realizado.
+	Y- Eliminar os dados de um treino que não se encontre realizado.
 
 	• Apresentar o resultado obtido por um determinado estudante (indicado pelo
 	utilizador) no último treino, e listar todos os treinos desse estudante.
