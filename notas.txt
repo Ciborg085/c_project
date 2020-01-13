@@ -23,10 +23,10 @@ Perguntas:
 
 
 Boas praticas e verificacoes a fazer ao codigo:
-  Todos os switch's tem um default
-  Os dados apenas sao guardados se as verificacoes passarem (nao guardar logo)
-  Verificar que todos os errors acontecem
-	procurar da handle a -1
+  X - Todos os switch's tem um default
+  X - Os dados apenas sao guardados se as verificacoes passarem (nao guardar logo)
+  X - Verificar que todos os errors acontecem
+	X - procurar da handle a -1
 	estatisticas /0
 
 Podemos adicionar na função consultarEstudante() um argumento para dizer se a função tem numerização ou n, podendo ter numeração numerica, alfabetica e se aptecer romana, para n estar a repetir codigo no alterarEstudante().
@@ -44,18 +44,3 @@ Stuff para prestar atenção:
 
 Duvidas:
 	| X | Quando se cria um treino metesse qual o aluno que vai fazer o treino, e deixa-se o estado do treino como não feito|
-
-
-
-Treinos 101:
-		10 perguntas
-		cada uma tem cotação igual
-		por isso:
-
-			cotação de cada uma = 20/nPerguntas = 2;
-
-		se acertei 6 das 10 a minha classificação seria:
-
-			classificação = cotaçãoCadaPergunta * perguntasCorretas
-
-						  = (20/nPerguntas) * perguntasCorretas
