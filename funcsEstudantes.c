@@ -9,24 +9,6 @@
 #include "funcsTreinos.h"
 #include <stdlib.h>
 
-/* TODO:?
-	Criar funcionario
-
-	verificar se nEstudantes chegou ao MAX
-	criar id
-	pedir e guardar nome
-	" "	  "  " "	tipo
-	" "   "	"	"	regime
-	" "   "	"	"	turno
-	incrementar nEstudantes ao criar o estudante
-
-Notas:
-	Temos de discutir o que faz mais sentido, devolver o nEstudantes ou o idEstudantes pelo return
-	ou-
-	devolver o nEstudantes e/ou o idEstudantes.
-
-	Secalhar deviamos tentar incrementar o nEstudantes antes para que o nEstudantes n fique maior que o max depois que a função acabar
-*/
 void mostrarEstudante(tipoEstudante vetorEstudantes)
 {
 	printf("Id: %d\n",vetorEstudantes.id);
@@ -150,7 +132,6 @@ void alterarEstudante(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstuda
 				printf("4) Turno: %d\n",vetorEstudantes[pos].turno);
 				printf("5) Tudo\n");
 				printf("6) Sair\n");
-				//---------------------------------
 				opcao = lerInteiro("Opcao: ",1,6);
 				printf("\n\n");
 
@@ -300,7 +281,6 @@ void rankingEstudantes(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstud
 	}
 	else {
 		for(i=0;i<nEstudantes;i++) {
-			printf("DEBUG -> mediaEstudantes[i].idEstudante = vetorEstudantes[i].id = %d\n", vetorEstudantes[i].id);
 			mediaEstudantes[i].idEstudante = vetorEstudantes[i].id; //para saber-se apos de ordenar
 			if(nTreinosEstudante[i] != 0){
 				mediaEstudantes[i].media /= (float)nTreinosEstudante[i];
@@ -313,7 +293,6 @@ void rankingEstudantes(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstud
 		qsort((void*)mediaEstudantes, nEstudantes, sizeof(tipoEstudanteMedia), compararNotaMaior);
 		printf("Ranking de estudantes:\n");
 		for(i=0;i<nEstudantes;i++) {
-			printf("DEBUG - mediaEstudante[%d].idEstudante %d\n", i, mediaEstudantes[i].idEstudante);
 			pos = procurarEstudante(vetorEstudantes,nEstudantes,mediaEstudantes[i].idEstudante);
 			printf("%d. %s -> %.2f\n",pos+1,vetorEstudantes[pos].nome, mediaEstudantes[i].media);
 		}
@@ -327,18 +306,6 @@ void menuEstudantes(tipoEstudante vetorEstudantes[MAX_ESTUDANTES],int *nEstudant
 	int idEstudante;
 	int pos;
 
-	tipoData data1;
-	data1.ano = 2002;
-	data1.mes = 3;
-
-	tipoData data2;
-	data2.ano = 2002;
-	data2.mes = 2;
-
-	printf("dataemaior %d", dataEMaior(data1,data2));
-
-
-	/*Falta meter os argumentos e criar a funcao listarEstudantes()*/
 	do
 	{
 		idEstudante = 0;
@@ -355,7 +322,6 @@ void menuEstudantes(tipoEstudante vetorEstudantes[MAX_ESTUDANTES],int *nEstudant
 				break;
 			case 'C':
 				consultarEstudante(vetorEstudantes,*nEstudantes,vetorTreinos,nTreinos,vetorPerguntas,nPerguntas);
-				//consularEstudante();
 				break;
 			case 'A':
 				alterarEstudante(vetorEstudantes, *nEstudantes);

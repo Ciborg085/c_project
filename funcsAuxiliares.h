@@ -17,6 +17,6 @@ tipoTreino* lerFicheiroBinario(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], in
 
 int dataEMaior(tipoData data, tipoData dataComparar);
 
-
+void escreverLog(const char * mensagem, ...);
 
 #endif // FUNCS_AUXILIARES_H_INCLUDED

@@ -45,6 +45,38 @@ void mostrarPerguntasTreino(tipoTreino treino, tipoPergunta vetorPerguntas[MAX_P
 	printf("\n");
 }
 
+void logTreino(tipoTreino treino, tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPerguntas) {
+	int i;
+
+	escreverLog("Id: %d\nProva: %d\n", treino.id, treino.idProva);
+	if(treino.estado==0)
+	{
+		escreverLog("Estado: Nao realizado.\n");
+	}
+	else
+	{
+		escreverLog("Estado: Concluido.\n");
+		escreverLog("Data de realizacao: %d/%d/%d\n", treino.dataRealizacao.mes, treino.dataRealizacao.mes, treino.dataRealizacao.ano);
+		escreverLog("Duracao: %d minutos\n",treino.duracao);
+		escreverLog("Perguntas respondidas: %d\n", treino.nRespostas);
+		escreverLog("Respostas corretas: %d\n", treino.quantRespostasCorretas);
+		escreverLog("Respostas erradas: %d\n", treino.quantRespostasErradas);
+		escreverLog("Classificacao: %f\n\n", treino.classificacao);
+	}
+
+	escreverLog("Perguntas:\n\n");
+	for(i=0;i<treino.nRespostas;i++)
+	{
+		mostrarPergunta(vetorPerguntas[treino.respostas[i].idPergunta]);
+
+		if(treino.estado == 1)
+		{
+			escreverLog("Resposta Escolhida: %d\n", treino.respostas[i].opcaoEscolhida);
+		}
+	}
+	escreverLog("\n");
+}
+
 void inserirIdEstudante(tipoTreino *vetorTreinos, tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstudantes)
 {
 	int invalido,i, idInserido;
@@ -76,7 +108,6 @@ int escolherProva(tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPerguntas)
 		nProvas[j-1]++;
 	}
 	//listar as disponiveis
-	//TODO: Verificar quando nao ha provas disponiveis
 	printf("Provas disponiveis\n");
 	for(i=0;i<4;i++)
 	{
@@ -201,7 +232,6 @@ void escolherPerguntas(tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPergunta
 			} while(invalido == 1);
 			printf("\n");
 
-			//TODO: Verificar pergunta pertence a prova
 			do
 			{
 				for(i=0;i<nPerguntas; i++)
@@ -220,10 +250,6 @@ void escolherPerguntas(tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPergunta
 					}
 				}
 				printf("-1 - Voltar\n");
-
-				//TODO: Verificar se nao ha perguntas ou nao dar allow a selecionar pergunta escondida!
-				// Com encontrarPergunta .tipo = filtro!
-				//TODO: limpar isto.
 
 				perguntaEscolhida = lerInteiro("Opcao: ", -1, nPerguntas-1);
 				if(perguntaEscolhida != -1)
@@ -287,7 +313,9 @@ tipoTreino *criarTreino(tipoTreino *vetorTreinos, int *nTreinos, tipoEstudante v
 {
 	tipoTreino *novoVetorTreinos;
 	tipoTreino *novoTreino;
-	void *vetorNulo;
+	int i;
+	int nProvas[3] = {0};
+	int existemProvas =0;
 
 	char opcao;
 	int invalido = 0;
@@ -297,40 +325,50 @@ tipoTreino *criarTreino(tipoTreino *vetorTreinos, int *nTreinos, tipoEstudante v
 	}
 	else
 	{
-		novoVetorTreinos = realloc(vetorTreinos,sizeof(tipoTreino)*((*nTreinos)+1));
-		if(vetorNulo == NULL)
-		{
-			printf("Nao existe espaco suficiente para adicionar mais um treino.");
-
+		for(i=0;(i<nPerguntas || existemProvas == 1);i++) {
+			nProvas[vetorPerguntas[i].idProva-1]++;
+			if(nProvas[vetorPerguntas[i].idProva-1] == 4) {
+				existemProvas=1;
+			}
 		}
-		else
-		{
-
-			//Como verificamos antes se há espaço, n é preciso verificar se é null agora
-			vetorTreinos = novoVetorTreinos;
-
-			(*nTreinos)++;
-			novoTreino = &(vetorTreinos[(*nTreinos)-1]);
-
-			// Gerar id automatico
-			if(*nTreinos == 1)
+		if(existemProvas==0) {
+			printf("Nao existem provas com tamanho minimo de perguntas (%d)",MIN_RESPOSTAS);
+		}
+		else{
+			novoVetorTreinos = realloc(vetorTreinos,sizeof(tipoTreino)*((*nTreinos)+1));
+			if(novoVetorTreinos == NULL)
 			{
-				novoTreino->id = 0;
+				printf("Nao existe espaco suficiente para adicionar mais um treino.");
+
 			}
 			else
 			{
-				novoTreino->id = novoTreino[-1].id + 1;
+
+				//Como verificamos antes se há espaço, n é preciso verificar se é null agora
+				vetorTreinos = novoVetorTreinos;
+
+				(*nTreinos)++;
+				novoTreino = &(vetorTreinos[(*nTreinos)-1]);
+
+				// Gerar id automatico
+				if(*nTreinos == 1)
+				{
+					novoTreino->id = 0;
+				}
+				else
+				{
+					novoTreino->id = novoTreino[-1].id + 1;
+				}
+
+
+				inserirIdEstudante(novoTreino, vetorEstudantes, nEstudantes);
+				novoTreino->idProva = escolherProva(vetorPerguntas, nPerguntas);
+
+				escolherPerguntas(vetorPerguntas, nPerguntas, novoTreino);
+
+				novoTreino->estado = 0;
+				printf("Treino inserido.\n\n");
 			}
-
-
-			inserirIdEstudante(novoTreino, vetorEstudantes, nEstudantes);
-			novoTreino->idProva = escolherProva(vetorPerguntas, nPerguntas);
-
-			escolherPerguntas(vetorPerguntas, nPerguntas, novoTreino);
-
-			novoTreino->estado = 0;
-			printf("Treino inserido.\n\n");
-
 		}
 	}
 
@@ -429,6 +467,7 @@ void realizarProva(tipoTreino * vetorTreinos, int nTreinos , tipoPergunta vetorP
 				treino->quantRespostasErradas = treino->nRespostas-treino->quantRespostasCorretas;
 				treino->classificacao = (100.0/treino->nRespostas)*(treino->quantRespostasCorretas - treino->quantRespostasErradas*0.25);
 				printf("Treino realizado.");
+				logTreino(*treino, vetorPerguntas, nPerguntas);
 				mostrarTreino(*treino);
 			}
 		}
@@ -443,7 +482,7 @@ tipoTreino * removerTreino(tipoTreino *vetorTreinos, int *nTreinos)
 	int pos;
 	int opcao;
 	int invalido = 0;
-	int nTreinosDecorrer;
+	int nTreinosDecorrer = 0;
 	int vetorTreinosDecorrer;
 
 	if(*nTreinos == 0)
@@ -459,7 +498,6 @@ tipoTreino * removerTreino(tipoTreino *vetorTreinos, int *nTreinos)
 				nTreinosDecorrer++;
 			}
 		}
-
 		if(nTreinosDecorrer == 0)
 		{
 			printf("Nao ha treinos a decorrer\n");
@@ -539,7 +577,7 @@ void tempoMedio(tipoTreino *vetorTreinos, int nTreinos)
 	if (respostas != 0)
 	{
 		tempoMedio = (duracao/nTreinos) / respostas;
-		printf("O Tempo medio de resposta a uma pergunta e de %d minutos.\n", tempoMedio);
+		printf("O Tempo medio de resposta a uma pergunta e de %0.2f minutos.\n", tempoMedio);
 	}
 }
 
@@ -573,7 +611,6 @@ void nTreinosEntreDatas(tipoTreino *vetorTreinos, int nTreinos)
 		}
 		printf("\nForam feitos %d entre as datas que indicou\n\n", nTreinosRealizadosEntreDatas);
 	}
-
 }
 
 void perguntaMaisErrada(tipoTreino *vetorTreinos, int nTreinos, tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPerguntas, int nPerguntasErradas[MAX_PERGUNTAS])
@@ -612,7 +649,7 @@ void perguntaMaisErrada(tipoTreino *vetorTreinos, int nTreinos, tipoPergunta vet
 	}
 
 	pos = encontrarPergunta(vetorPerguntas, nPerguntas, idPerguntaMaisErrada);
-	printf("\nA pergunta mais errada:\n ID) %d, Respostas erradas: %d\n\n", idPerguntaMaisErrada, nPerguntaMaisErrada, vetorPerguntas[pos].questao);
+	printf("\nA pergunta mais errada:%s\n ID) %d, Respostas erradas: %d\n\n", vetorPerguntas[pos].questao, idPerguntaMaisErrada, nPerguntaMaisErrada);
 }
 
 void percTreinosPorProva(tipoTreino *vetorTreinos, int nTreinos)

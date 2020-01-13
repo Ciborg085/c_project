@@ -46,7 +46,6 @@ int main() {
 
 	char opcao;
 	do {
-		//Falta na funcão menu a quantidade de treinos realizados e a decorrer.
 		nTreinosDecorrer =0;
 		nTreinosFeitos = 0;
 		if(nTreinos != 0)

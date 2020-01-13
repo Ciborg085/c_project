@@ -4,6 +4,23 @@
 
 #include "funcsAuxiliares.h"
 #include "estruturas.h"
+#include <stdarg.h>
+
+void escreverLog(const char * mensagem, ...)
+{
+	FILE *fp= fopen("log.txt", "a");
+
+	va_list valist;
+	va_start(valist, mensagem);
+
+	//Decidimos ao mostrar erros ao usuario por funcionalidades de log.
+	if(fp != NULL) {
+		vfprintf(fp,mensagem, valist);
+	}
+	fclose(fp);
+
+	va_end(valist);
+}
 
 // 0 - data e menor 1 - data e maior
 int dataEMaior(tipoData data, tipoData dataComparar) {
@@ -313,4 +330,3 @@ tipoTreino * lerFicheiroBinario(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], i
 	}
 	return vetorTreinos;
 }
-

@@ -157,7 +157,6 @@ int encontrarPergunta(tipoPergunta perguntas[MAX_PERGUNTAS], int quantPerguntas,
 
 void consultarPergunta(tipoPergunta perguntas[MAX_PERGUNTAS], int quantPerguntas) {
 	int idProcura, posPergunta;
-	// Podiamos listar o id e o nome dos
 	if(quantPerguntas == 0) {
 		printf("Nao existem perguntas para consultar.\n");
 	}
