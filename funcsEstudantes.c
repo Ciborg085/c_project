@@ -310,7 +310,7 @@ void menuEstudantes(tipoEstudante vetorEstudantes[MAX_ESTUDANTES],int *nEstudant
 	{
 		idEstudante = 0;
 		printf("\n\nMenu Estudantes:\n");
-		printf("E - Criar Estudante\tC - Consultar estudante\nA - Alterar Estudante\nL - Listar Estudantes\nR - Ranking Estudantes\nS - Sair\n");
+		printf("E - Criar Estudante\nC - Consultar estudante\nA - Alterar Estudante\nL - Listar Estudantes\nR - Ranking Estudantes\nS - Sair\n");
 
 		opcao = toupper(lerChar("Opcao: "));
 		printf("\n");
