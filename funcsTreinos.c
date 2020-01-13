@@ -550,8 +550,8 @@ tipoTreino * removerTreino(tipoTreino *vetorTreinos, int *nTreinos)
 		Y- a tempo médio de resposta a uma pergunta,
 		Y- quantidade de treinos realizados entre duas datas (indicadas pelo utilizador),
 		Y- percentagem de treinos efetuados por cada prova,
+		Y- pergunta com a maior quantidade de respostas erradas,
 TODO:o que está a baixxooooo
-		pergunta com a maior quantidade de respostas erradas,
 		e o tipo de perguntas com a menor percentagem de respostas corretas.
 
 */
@@ -688,15 +688,9 @@ void mostrarEstatisticas(tipoTreino *vetorTreinos, int nTreinos, tipoPergunta ve
 			{
 				if(vetorTreinos[i].estado == 1)
 				{
-					if( data1.ano <= vetorTreinos[i].dataRealizacao.ano && data2.ano >= vetorTreinos[i].dataRealizacao.ano)
+					if(dataEMaior(vetorTreinos[i].dataRealizacao, data1) == 1 && dataEMaior(data2, vetorTreinos[i].dataRealizacao))
 					{
-						if( data1.mes <= vetorTreinos[i].dataRealizacao.mes && data2.mes >= vetorTreinos[i].dataRealizacao.mes)
-						{
-							if( data1.dia <= vetorTreinos[i].dataRealizacao.dia && data2.dia >= vetorTreinos[i].dataRealizacao.dia)
-							{
-								nTreinosRealizadosEntreDatas++;
-							}
-						}
+						nTreinosRealizadosEntreDatas++;
 					}
 				}
 			}
@@ -725,6 +719,15 @@ void mostrarEstatisticas(tipoTreino *vetorTreinos, int nTreinos, tipoPergunta ve
 	{
 		printf("Nao existe provas realizadas.\n");
 	}
+
+
+	/*
+		o tipo de perguntas com a menor percentagem de respostas corretas.
+		vou reutilizador os arrays idPerguntasErradas para agora guardar o tipo de pergunta que é, sendo esse tipo um integer.
+		e o nPerguntasErradas vai ser utilizado para guardar o numero de perguntas erradas para um tipo
+	*/
+	j
+
 }
 
 tipoTreino *menuTreinos(tipoTreino *vetorTreinos, int *nTreinos, tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstudantes, tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPerguntas) {
