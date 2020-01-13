@@ -5,6 +5,30 @@
 #include "funcsAuxiliares.h"
 #include "estruturas.h"
 
+// 0 - data e menor 1 - data e maior
+int dataEMaior(tipoData data, tipoData dataComparar) {
+	int maior = 1;
+
+	if(data.ano==dataComparar.ano) {
+		if(data.mes==dataComparar.mes){
+			if(data.dia<dataComparar.dia){
+				maior = 0;
+			}
+		}
+		else{
+			if(data.mes<dataComparar.mes){
+				maior = 0;
+			}
+		}
+	}
+	else{
+		if(data.ano<dataComparar.ano){
+			maior = 0;
+		}
+	}
+	return maior;
+}
+
 // Acrescentada variavel controlo para repetir insercao se ao for inserido numero int
 int lerInteiro(char mensagem[MAX_STRING], int minimo, int maximo)
 {
@@ -209,7 +233,6 @@ void gravarFicheiroBinario(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nE
 		res = fclose(ficheiro);
 		if(res != 0)
 		{
-			// TODO: Bonus: pedir ao user para fechar o ficheiro e tentar outravez
 			printf("Erro ao fechar o ficheiro.\n");
 		}
     }

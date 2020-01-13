@@ -15,6 +15,7 @@ void listarVetor(char vetor[MAX_STRING][99], int nElementos,int metodo);
 void gravarFicheiroBinario(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int nEstudantes,tipoPergunta vetorPerguntas[MAX_PERGUNTAS],int nPerguntas, tipoTreino* vetorTreinos, int nTreinos);
 tipoTreino* lerFicheiroBinario(tipoEstudante vetorEstudantes[MAX_ESTUDANTES], int *nEstudantes, tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int *nPerguntas, int *nTreinos);
 
+int dataEMaior(tipoData data, tipoData dataComparar);
 
 
 

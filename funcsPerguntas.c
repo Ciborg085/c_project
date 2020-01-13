@@ -94,8 +94,8 @@ void inserirPergunta(tipoPergunta perguntas[MAX_PERGUNTAS], int *quantPerguntas)
 			novaPergunta.id = perguntas[(*quantPerguntas)-1].id + 1;
 		}
 
-		inserirQuestao(perguntas,*quantPerguntas, &novaPergunta);
 		inserirIdProva(perguntas,*quantPerguntas, &novaPergunta);
+		inserirQuestao(perguntas,*quantPerguntas, &novaPergunta);
 		inserirOpcoes(&novaPergunta);
 		inserirRespostaCorreta(&novaPergunta);
 		inserirTipoPergunta(&novaPergunta);
