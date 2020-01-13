@@ -542,25 +542,12 @@ tipoTreino * removerTreino(tipoTreino *vetorTreinos, int *nTreinos)
 	return vetorTreinos;
 }
 
-/*
-	• Apresentar os seguintes dados estatísticos:
-		Y- a tempo médio de resposta a uma pergunta,
-		Y- quantidade de treinos realizados entre duas datas (indicadas pelo utilizador),
-		Y- percentagem de treinos efetuados por cada prova,
-		Y- pergunta com a maior quantidade de respostas erradas,
-		e o tipo de perguntas com a menor percentagem de respostas corretas.
-
-*/
-
-//
 void tempoMedio(tipoTreino *vetorTreinos, int nTreinos)
 {
 	int duracao=0, respostas=0;
-	int nTreinosRealizados=0;
 	float tempoMedio;
 	int i;
 
-	//tempo medio
 	//tempo_medio = duracao/ perguntas
 	for(i=0;i<nTreinos;i++)
 	{
@@ -572,7 +559,7 @@ void tempoMedio(tipoTreino *vetorTreinos, int nTreinos)
 	}
 	if (respostas != 0)
 	{
-		tempoMedio = (duracao/(nTreinos)) / respostas;
+		tempoMedio = (duracao/nTreinos) / respostas;
 		printf("O Tempo medio de resposta a uma pergunta e de %d minutos.\n", tempoMedio);
 	}
 }
@@ -582,9 +569,7 @@ void nTreinosEntreDatas(tipoTreino *vetorTreinos, int nTreinos)
 	int i;
 	tipoData data1,data2;
 	int nTreinosRealizadosEntreDatas=0;
-	//quantidade de treinos realizados entre duas datas
-	//verificar entre anos, entre meses e entre dias
-	//TODO: n está a funcionar bem
+
 	printf("\nQuantidade de treinos realizados entre duas datas:\n");
 	printf("Ler primeira data\n");
 	data1 = lerData();
@@ -648,7 +633,7 @@ void perguntaMaisErrada(tipoTreino *vetorTreinos, int nTreinos, tipoPergunta vet
 	}
 
 	pos = encontrarPergunta(vetorPerguntas, nPerguntas, idPerguntaMaisErrada);
-	printf("\nA pergunta mais errada:\n ID) %d, Respostas erradas: %d\n", idPerguntaMaisErrada, nPerguntaMaisErrada, vetorPerguntas[pos].questao);
+	printf("\nA pergunta mais errada:\n ID) %d, Respostas erradas: %d\n\n", idPerguntaMaisErrada, nPerguntaMaisErrada, vetorPerguntas[pos].questao);
 }
 
 void percTreinosPorProva(tipoTreino *vetorTreinos, int nTreinos)
@@ -659,6 +644,7 @@ void percTreinosPorProva(tipoTreino *vetorTreinos, int nTreinos)
 
 	for(i=0;i<nTreinos;i++)
 	{
+		//tenho de colocar o -1 por que as provas sao de 1 a 4 e o array provas vai de 0 a 3
 		provas[(vetorTreinos[i].idProva)-1]++;
 	}
 	printf("Foram realizados:\n\n");
@@ -668,6 +654,7 @@ void percTreinosPorProva(tipoTreino *vetorTreinos, int nTreinos)
 		printf("%0.2f da prova %d \n",percProvas[i], i+1);
 	}
 }
+
 void mostrarEstatisticas(tipoTreino *vetorTreinos, int nTreinos, tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPerguntas)
 {
 	int i,j,pos;
@@ -714,7 +701,8 @@ void mostrarEstatisticas(tipoTreino *vetorTreinos, int nTreinos, tipoPergunta ve
 			vou reutilizador os arrays idPerguntasErradas para agora guardar o tipo de pergunta que é, sendo esse tipo um integer.
 			e o nPerguntasErradas vai ser utilizado para guardar o numero de perguntas erradas para um tipo
 		*/
-		//
+
+		// o tipo de pergunta com a menor percentagem de respostas corretas.
 
 		for(i=0;i<nTreinos;i++)
 		{
@@ -738,9 +726,6 @@ void mostrarEstatisticas(tipoTreino *vetorTreinos, int nTreinos, tipoPergunta ve
 		}
 		for(i=0;i<3;i++)
 		{
-		}
-		for(i=0;i<3;i++)
-		{
 			if(totalTipoPerguntas != 0)
 			{
 				if(i==0)
@@ -753,6 +738,7 @@ void mostrarEstatisticas(tipoTreino *vetorTreinos, int nTreinos, tipoPergunta ve
 					tipoPerguntaMenorRespostasCorretas = i;
 				}
 			}
+			//Como pode dar numeros negativos coloquei if.
 			if(menorPercTipoPerguntaRespostasCorretas < 0)
 			{
 				menorPercTipoPerguntaRespostasCorretas = 0.0;
