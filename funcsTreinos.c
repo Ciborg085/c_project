@@ -585,7 +585,7 @@ void tempoMedio(tipoTreino *vetorTreinos, int nTreinos)
 	if (respostas != 0)
 	{
 		tempoMedio = (duracao/nTreinos) / respostas;
-		printf("O Tempo medio de resposta a uma pergunta e de %d minutos.\n", tempoMedio);
+		printf("O Tempo medio de resposta a uma pergunta e de %0.2f minutos.\n", tempoMedio);
 	}
 }
 
@@ -619,7 +619,6 @@ void nTreinosEntreDatas(tipoTreino *vetorTreinos, int nTreinos)
 		}
 		printf("\nForam feitos %d entre as datas que indicou\n\n", nTreinosRealizadosEntreDatas);
 	}
-
 }
 
 void perguntaMaisErrada(tipoTreino *vetorTreinos, int nTreinos, tipoPergunta vetorPerguntas[MAX_PERGUNTAS], int nPerguntas, int nPerguntasErradas[MAX_PERGUNTAS])
@@ -658,7 +657,7 @@ void perguntaMaisErrada(tipoTreino *vetorTreinos, int nTreinos, tipoPergunta vet
 	}
 
 	pos = encontrarPergunta(vetorPerguntas, nPerguntas, idPerguntaMaisErrada);
-	printf("\nA pergunta mais errada:\n ID) %d, Respostas erradas: %d\n\n", idPerguntaMaisErrada, nPerguntaMaisErrada, vetorPerguntas[pos].questao);
+	printf("\nA pergunta mais errada:%s\n ID) %d, Respostas erradas: %d\n\n", vetorPerguntas[pos].questao, idPerguntaMaisErrada, nPerguntaMaisErrada);
 }
 
 void percTreinosPorProva(tipoTreino *vetorTreinos, int nTreinos)
