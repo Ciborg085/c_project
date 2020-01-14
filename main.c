@@ -36,6 +36,10 @@ int main() {
 
 	int nTreinos = 0;
 
+	tipoResposta *vetorRespostas;
+	vetorRespostas = NULL;
+	int nRespostas;
+
 	int nTreinosFeitos;
 	int nTreinosDecorrer;
 	int i;
@@ -69,7 +73,7 @@ int main() {
 				break;
 			case 'L': vetorTreinos = lerFicheiroBinario(vetorEstudantes,&nEstudantes,vetorPerguntas,&nPerguntas, &nTreinos);
 				break;
-			case 'T': vetorTreinos = menuTreinos(vetorTreinos, &nTreinos, vetorEstudantes, nEstudantes, vetorPerguntas, nPerguntas);
+			case 'T': vetorTreinos = menuTreinos(vetorTreinos, &nTreinos, vetorEstudantes, nEstudantes, vetorPerguntas, nPerguntas, vetorRespostas, &nRespostas);
 				break;
 			case 'S': break;
 			default: printf("Opcao Invalida.\n");
