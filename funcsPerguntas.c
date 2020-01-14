@@ -177,7 +177,7 @@ void alterarPergunta(tipoPergunta perguntas[MAX_PERGUNTAS], int quantPerguntas) 
 	tipoPergunta pergunta;
 	char opcao;
 
-	idPergunta = lerInteiro("Insira o id da pergunta a alterar ",0,1000);
+	idPergunta = lerInteiro("Insira o id da pergunta a alterar ",0,quantPerguntas);
 	posProcura = encontrarPergunta(perguntas, quantPerguntas, idPergunta);
 	if(posProcura == -1) {
 		printf("Nao existe uma pergunta com esse id.");
