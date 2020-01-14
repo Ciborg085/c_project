@@ -320,6 +320,7 @@ tipoTreino *criarTreino(tipoTreino *vetorTreinos, int *nTreinos, tipoEstudante v
 	char opcao;
 	int invalido = 0;
 
+	printf("DEBUG: nTreinos:", *nTreinos);
 	if(nEstudantes==0) {
 		printf("Nenhum estudante registado. \nInsira um estudante antes de criar uma prova.\n");
 	}
